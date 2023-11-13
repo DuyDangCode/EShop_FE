@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Container from "../Container";
 import { Redressed } from "next/font/google";
+import Search from "../search/Search";
 
 const redressed = Redressed({
   weight: "400",
@@ -19,7 +20,9 @@ const NavBar = () => {
           >
             E-Shop
           </Link>
-          <div className="hidden sm:block">Search</div>
+          <div className="hidden sm:block">
+            <Search />
+          </div>
           <div className="flex gap-8 md:gap-12 justify-between">
             <div className="">Card</div>
             <div className="">Avatar</div>
