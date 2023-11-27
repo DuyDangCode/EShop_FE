@@ -1,3 +1,9 @@
+import ProductCard from '@/components/product/card';
+
 export default function Home() {
-  return <div>Hello form EShop</div>;
+  return (
+    <div>
+      <ProductCard></ProductCard>
+    </div>
+  );
 }
