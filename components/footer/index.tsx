@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-// type of links 
+// type of links
 interface DataInterface {
   id: number;
   label: string;
@@ -8,17 +8,16 @@ interface DataInterface {
 
 // Address information tyoe
 interface AddressInterface {
-  address: string,
-  phones: string,
-  openTime: OpenTimeInterface[],
-  email: string,
-
+  address: string;
+  phones: string;
+  openTime: OpenTimeInterface[];
+  email: string;
 }
 
 interface OpenTimeInterface {
-  weekday: string,
-  start: string,
-  end: string,
+  weekday: string;
+  start: string;
+  end: string;
 }
 
 const Footer = () => {
@@ -65,15 +64,16 @@ const Footer = () => {
   const address: AddressInterface = {
     address: '1234 Street Adress City Address 1234',
     phones: '(00) 1234 5678',
-    openTime: [{ weekday: 'Monday-Thursday', start: '9:00 AM', end: '5:30 PM' }, { weekday: 'Friday', start: '9:00 AM', end: '6:00 PM' }, { weekday: 'Saturday', start: '11:00 AM', end: '5:00 PM' }],
+    openTime: [
+      { weekday: 'Monday-Thursday', start: '9:00 AM', end: '5:30 PM' },
+      { weekday: 'Friday', start: '9:00 AM', end: '6:00 PM' },
+      { weekday: 'Saturday', start: '11:00 AM', end: '5:00 PM' },
+    ],
     email: 'shop@email.com',
-  }
-
+  };
 
   return (
     <div className='flex h-[521px] w-full bg-[#020203] flex-col py-[10px] px-[100px]'>
-
-
       {/*title and subscribe*/}
       <div className='flex-[3] flex justify-between items-center'>
         <div className='flex flex-col gap-2'>
@@ -96,11 +96,8 @@ const Footer = () => {
         </div>
       </div>
 
-
       {/*table of links*/}
       <div className='flex-[6] flex w-full justify-between'>
-
-
         <div>
           <h3 className='text-gray-400 font-bold'>Information</h3>
           <div className='flex flex-col'>
@@ -116,18 +113,20 @@ const Footer = () => {
           </div>
         </div>
 
-
         <div>
           <h3 className='text-gray-400 font-bold'>PC Parts</h3>
           <div className='flex flex-col'>
-            {pcPartsData.map((item) => (
-              <Link href={`${item.label}`} className='text-white text-[15px]'>
+            {pcPartsData.map((item, index) => (
+              <Link
+                key={index}
+                href={`${item.label}`}
+                className='text-white text-[15px]'
+              >
                 {item.label}
               </Link>
             ))}
           </div>
         </div>
-
 
         <div>
           <h3 className='text-gray-400 font-bold'>Desktop PCs</h3>
@@ -144,7 +143,6 @@ const Footer = () => {
           </div>
         </div>
 
-
         <div>
           <h3 className='text-gray-400 font-bold'>Laptops</h3>
           <div className='flex flex-col'>
@@ -159,7 +157,6 @@ const Footer = () => {
             ))}
           </div>
         </div>
-
 
         <div>
           <h3 className='text-gray-400 font-bold'>Address</h3>
@@ -176,8 +173,8 @@ const Footer = () => {
 
           <div className='flex flex-wrap flex-col text-white'>
             <h3>We are open: </h3>
-            {address.openTime.map(index => (
-              <div className='flex gap-2'>
+            {address.openTime.map((index: any, i: number) => (
+              <div className='flex gap-2' key={i}>
                 <h3>{index.weekday}</h3>
                 <h3> : </h3>
                 <h3>{index.start}</h3>
@@ -191,16 +188,14 @@ const Footer = () => {
             <h3>E-mail: </h3>
             <h3 className='text-[#01A4FF]'>{address.email}</h3>
           </div>
-
         </div>
       </div>
 
       <div className='flex justify-end flex-[1]'>
-        <h3 className='text-white text-[10px]'>Copyright © 2020 Shop Pty. Ltd.</h3>
+        <h3 className='text-white text-[10px]'>
+          Copyright © 2020 Shop Pty. Ltd.
+        </h3>
       </div>
-
-
-
     </div>
   );
 };
