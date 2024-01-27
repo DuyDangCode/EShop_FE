@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
+import { Toaster } from 'react-hot-toast';
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '700'] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
           <Header />
           <main className='flex-grow'>{children}</main>
           <Footer />
+          <Toaster position='bottom-center' reverseOrder={false} />
         </div>
       </body>
     </html>
