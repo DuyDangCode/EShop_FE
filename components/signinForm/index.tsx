@@ -28,9 +28,12 @@ export default function SigninForm() {
       startTransition(async () => {
         try {
           const res = await axios.get('/api/me');
-          setUser(res.data);
-          router.replace('/');
-        } catch (error) {}
+          // console.log(res);
+          // setUser(res.data);
+          // router.replace('/');
+        } catch (error) {
+          console.log(error);
+        }
       });
     }
   }, [fromState]);

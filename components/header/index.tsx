@@ -4,14 +4,17 @@ import Link from 'next/link';
 import Logo from '@/public/images/logo.png';
 import SearchImg from '@/public/images/gg_search.png';
 import XSearchImg from '@/public/images/x_gg_search.png';
-import CardExample from '@/public/images/cardExample.png';
+import CartExample from '@/public/images/cardExample.png';
 import AvatarExample from '@/public/images/avatarExample.png';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import Search from '../search';
+import { signOut } from '@/actions/auth';
+import UserContext, { User } from '@/context/userContext';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { useContext, useEffect, useState, useTransition } from 'react';
+import { useFormState } from 'react-dom';
 
 export default function Header() {
-  const router = useRouter();
   const [search, setSearch] = useState(SearchImg);
   const openSearch = () => {
     search == SearchImg ? setSearch(XSearchImg) : setSearch(SearchImg);
@@ -19,6 +22,37 @@ export default function Header() {
   const handleSearch = () => {
     console.log("I'm searching.");
   };
+
+  const router = useRouter();
+  const defaultFormState = {
+    status: 0,
+    message: '',
+  };
+  const [fromState, signOutAction] = useFormState(signOut, defaultFormState);
+  const [isLogoutFail, setIsLogoutFail] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const { user, setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    if (fromState.status !== 0 && fromState.status !== 200) {
+      setIsLogoutFail(true);
+      setTimeout(() => {
+        setIsLogoutFail(false);
+      }, 5000);
+    } else if (fromState.status === 200) {
+      startTransition(async () => {
+        try {
+          // const res = await axios.get('/api/me');
+          // console.log(res.data);
+          // setUser({
+          //   userId: res.data.userId,
+          //   roles: res.data.roles,
+          // });
+          // router.replace('/');
+        } catch (error) {}
+      });
+    }
+  }, [fromState]);
 
   const data = [
     { id: 0, label: 'Laptops' },
@@ -68,17 +102,26 @@ export default function Header() {
             className='w-[20px] h-auto cursor-pointer'
             onClick={openSearch}
           />
-          <Image
-            src={CardExample}
-            alt='cards'
-            className='w-[35px] h-auto mb-2'
-          />
+          {user.userId && (
+            <Image
+              src={CartExample}
+              alt='cards'
+              className='w-[35px] h-auto mb-2'
+            />
+          )}
         </div>
-        <Image
-          src={AvatarExample}
-          alt='avatar'
-          className='w-[30px] h-[30px] mb-1'
-        />
+        {user.userId && (
+          <div>
+            <Image
+              src={AvatarExample}
+              alt='avatar'
+              className='w-[30px] h-[30px] mb-1'
+            />
+            <form action={signOutAction}>
+              <button>Logout</button>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );

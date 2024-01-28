@@ -45,6 +45,14 @@ const signIn = async (formState: {}, formData: FormData) => {
     // console.log(error);
     return { message: 'Somthing went wrong', status: 500 };
   }
+
+  cookies().set('aaa', Math.random().toString(), {
+    maxAge: ACCESS_TOKEN_TIME,
+  });
+
+  cookies().delete('aaa');
+  return { message: 'Somthing went wrong', status: Math.random() };
+
   // redirect(pathHelper.home());
 };
 

@@ -1,7 +1,7 @@
 'use client';
 
 import UserContext, { User } from '@/context/userContext';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
 export function Provider({
   children,
@@ -11,9 +11,11 @@ export function Provider({
   defaultUser: User;
 }) {
   const [user, setUser] = useState(defaultUser);
+  useEffect(() => {
+    setUser(defaultUser);
+  }, [defaultUser]);
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      {user.userId && <>Logged</>}
       {children}
     </UserContext.Provider>
   );
