@@ -3,7 +3,12 @@
 import { cookies } from 'next/headers';
 import axios from 'axios';
 import { BASE_URL, X_API_KEY } from '@/constrant/system';
-import { ACCESS_TOKEN, REFRESH_TOKEN, USER_ID } from './constrant/cookiesName';
+import {
+  ACCESS_TOKEN,
+  REFRESH_TOKEN,
+  ROLES,
+  USER_ID,
+} from './constrant/cookiesName';
 import {
   ACCESS_TOKEN_TIME,
   REFRESH_TOKEN_TIME,
@@ -57,6 +62,10 @@ apiInstance.interceptors.response.use(
   },
   (error) => {
     // console.log('error', error.response);
+    cookieStorage.delete(USER_ID);
+    cookieStorage.delete(ACCESS_TOKEN);
+    cookieStorage.delete(REFRESH_TOKEN);
+    cookieStorage.delete(ROLES);
     return error;
   }
 );

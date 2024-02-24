@@ -6,7 +6,10 @@ export function middleware(req: NextRequest) {
   const pathName = req.nextUrl.pathname;
 
   //Only pages that users are not logged in can access
-  if (pathName.endsWith('/signin') || pathName.endsWith('/signup')) {
+  if (
+    pathName.endsWith(pathHelper.signin()) ||
+    pathName.endsWith(pathHelper.signup())
+  ) {
     if (checkUserInRequest(req))
       return NextResponse.redirect(new URL(pathHelper.home(), req.url));
   }

@@ -22,9 +22,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // const defaultUser: User = {
+  //   userId: cookies().get(USER_ID)?.value,
+  //   roles: cookies().get(ROLES)?.value,
+  // };
   const defaultUser: User = {
-    userId: cookies().get(USER_ID)?.value,
-    roles: cookies().get(ROLES)?.value,
+    userId: null,
+    roles: null,
   };
   return (
     <html lang='en'>
