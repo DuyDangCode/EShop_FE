@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '@/public/vector/logo.svg'
+import LogoBlue from '@/public/vector/LogoBlue.svg'
 import SearchImg from '@/public/images/gg_search.png'
 import XSearchImg from '@/public/images/x_gg_search.png'
 import CartExample from '@/public/images/cardExample.png'
@@ -13,7 +14,14 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { useContext, useEffect, useState, useTransition } from 'react'
 import { useFormState } from 'react-dom'
-import { FaBars, FaCartShopping, FaUser } from 'react-icons/fa6'
+import {
+  FaBars,
+  FaCartShopping,
+  FaUser,
+  FaMagnifyingGlass,
+  FaFacebook,
+  FaInstagram
+} from 'react-icons/fa6'
 import DropDownMenu from '../DropdownMenu'
 import { pathHelper } from '@/helper/router'
 
@@ -68,32 +76,69 @@ export default function Header() {
     'Repairs'
   ]
 
+  const menuOnPc = () => {
+    return (
+      <>
+        {data.map((item) => (
+          <Link
+            key={item}
+            href={pathHelper.product(item)}
+            className='hidden lg:block text-black font-normal'
+          >
+            {item}
+          </Link>
+        ))}
+      </>
+    )
+  }
+
   const handleOpenCloseMenu = () => {
     setIsOpenMenu(!isOpenMenu)
   }
 
   return (
-    <div className=' flex-col h-[104px] w-full bg-color-3'>
-      <div className='flex items-center justify-end gap-10 h-[40px] w-full bg-black relative'>
-        <div className='flex justify-center items-start z-10 w-[64px] h-[60px] absolute bottom-[-30px] left-3 bg-color-3 rounded-full'>
-          <Image
-            src={Logo}
-            alt='logo'
-            height={20}
-            className=' text-white mt-[10px]'
-          />
+    <div className=' flex-col h-[104px] w-full bg-color-3 lg:bg-white lg:border-[1px] lg:border-black '>
+      <div className='flex items-center justify-end gap-2 lg:justify-around md:gap-10 h-[40px] w-full bg-black relative'>
+        <div className='flex justify-center items-start z-10 w-[64px] h-[60px] absolute bottom-[-30px] left-3 bg-color-3 rounded-full lg:hidden'>
+          <Link href={pathHelper.home()}>
+            <Image
+              src={Logo}
+              alt='logo'
+              height={20}
+              className=' text-white mt-[10px]'
+            />
+          </Link>
         </div>
         <div className='flex gap-2'>
           <p className=' text-[80%] text-[#A2A6B0]'>Mon-Thu:</p>
           <p className=' text-[80%] text-white'>9:00 AM - 5:30 PM</p>
         </div>
-        <div>
+        <div className='flex gap-1 items-center'>
+          <p className='hidden lg:block text-[#A2A6B0] text-[80%]'>
+            Visit our showroom in 1234 Street Adress City Address, 1234
+          </p>
           <p className=' text-[80%] text-white mr-5'>Contact Us</p>
         </div>
+        <div className=' hidden lg:flex items-center gap-2'>
+          <p className=' text-white text-[80%]'>Call Us: (00) 1234 5678</p>
+          <FaFacebook className=' text-white' />
+          <FaInstagram className=' text-white' />
+        </div>
       </div>
-      <div className=' relative flex justify-around items-center'>
+      <div className=' relative flex justify-around items-center h-[64px]'>
+        <Link href={pathHelper.home()}>
+          <Image
+            src={LogoBlue}
+            alt='logo'
+            height={55}
+            className=' hidden lg:block'
+          />
+        </Link>
+
+        {menuOnPc()}
+
         <FaBars
-          className='text-white z-50 text-[26px]'
+          className='text-white z-50 text-[1.5rem] lg:hidden'
           onClick={handleOpenCloseMenu}
         />
         {isOpenMenu && (
@@ -105,11 +150,14 @@ export default function Header() {
           />
         )}
 
-        <div className=' z-20 w-[227px] md:w-[518px] lg:w-[800px]'>
+        <div className=' z-20 w-[15rem] sm:w-[30rem] lg:hidden'>
           <Search />
         </div>
-        <FaCartShopping className=' text-white lg:text-color-3 -scale-x-[1] text-[26px]' />
-        <FaUser className=' text-white text-[26px]' />
+        <div className=' flex w-fit gap-2 md:w-[9.5rem] md:justify-around items-center'>
+          <FaMagnifyingGlass className='hidden text-black text-[19px] lg:block' />
+          <FaCartShopping className=' text-white lg:text-black -scale-x-[1] text-[1.25rem]' />
+          <FaUser className=' text-white text-[1.5rem] lg:text-black' />
+        </div>
       </div>
     </div>
   )
