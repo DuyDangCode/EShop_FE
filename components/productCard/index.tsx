@@ -1,6 +1,7 @@
-import RatingStar from '../ratingStar';
+import RatingStar from '../RatingStar'
 
 export default function ProductCard() {
+  console.log('a')
   return (
     <div className='flex flex-col bg-slate-200 w-[200px] h-[300px]'>
       {/* status */}
@@ -19,5 +20,5 @@ export default function ProductCard() {
       {/*  price */}
       <div className=' flex-[3]'>500</div>
     </div>
-  );
+  )
 }

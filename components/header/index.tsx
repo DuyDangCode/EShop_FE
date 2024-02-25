@@ -6,7 +6,7 @@ import SearchImg from '@/public/images/gg_search.png'
 import XSearchImg from '@/public/images/x_gg_search.png'
 import CartExample from '@/public/images/cardExample.png'
 import AvatarExample from '@/public/images/avatarExample.png'
-import Search from '../search'
+import Search from '../Search'
 import { signOut } from '@/actions/auth'
 import UserContext, { User } from '@/context/userContext'
 import axios from 'axios'
@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation'
 import { useContext, useEffect, useState, useTransition } from 'react'
 import { useFormState } from 'react-dom'
 import { FaBars, FaCartShopping, FaUser } from 'react-icons/fa6'
+import DropDownMenu from '../DropdownMenu'
 
 export default function Header() {
   const [search, setSearch] = useState(SearchImg)
@@ -21,7 +22,7 @@ export default function Header() {
     search == SearchImg ? setSearch(XSearchImg) : setSearch(SearchImg)
   }
   const handleSearch = () => {
-    console.log("I'm searching.")
+    console.log('Im searching.')
   }
 
   const router = useRouter()
@@ -89,6 +90,17 @@ export default function Header() {
       </div>
       <div className=' flex justify-around items-center'>
         <FaBars className='text-white z-50 text-[26px]' />
+        <DropDownMenu
+          items={['laptop', 'pc']}
+          actions={[
+            () => {
+              console.log('laptop')
+            },
+            () => {
+              console.log('pc')
+            }
+          ]}
+        />
 
         <div className=' z-20 w-[227px] md:w-[518px] lg:w-[800px]'>
           <Search />
