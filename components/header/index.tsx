@@ -15,6 +15,7 @@ import { useContext, useEffect, useState, useTransition } from 'react'
 import { useFormState } from 'react-dom'
 import { FaBars, FaCartShopping, FaUser } from 'react-icons/fa6'
 import DropDownMenu from '../DropdownMenu'
+import { pathHelper } from '@/helper/router'
 
 export default function Header() {
   const [search, setSearch] = useState(SearchImg)
@@ -34,6 +35,7 @@ export default function Header() {
   const [isLogoutFail, setIsLogoutFail] = useState(false)
   const [isPending, startTransition] = useTransition()
   const { user, setUser } = useContext(UserContext)
+  const [isOpenMenu, setIsOpenMenu] = useState(false)
 
   useEffect(() => {
     if (fromState.status !== 0 && fromState.status !== 200) {
@@ -57,16 +59,17 @@ export default function Header() {
   }, [fromState])
 
   const data = [
-    { id: 0, label: 'Laptops' },
-    { id: 1, label: 'Desktop PCs' },
-    { id: 2, label: 'Networking Devices' },
-    { id: 3, label: 'Printers & Scanners  ' },
-    { id: 4, label: 'PC Parts' },
-    { id: 5, label: 'All Other Products' },
-    { id: 6, label: 'Repairs' }
+    'Laptops',
+    'Desktop PCs',
+    'Networking Devices',
+    'Printers & Scanners  ',
+    'PC Parts',
+    'All Other Products',
+    'Repairs'
   ]
-  const handleOnclick = (id: number) => {
-    router.push(`/${data[id].label}`)
+
+  const handleOpenCloseMenu = () => {
+    setIsOpenMenu(!isOpenMenu)
   }
 
   return (
@@ -88,19 +91,19 @@ export default function Header() {
           <p className=' text-[80%] text-white mr-5'>Contact Us</p>
         </div>
       </div>
-      <div className=' flex justify-around items-center'>
-        <FaBars className='text-white z-50 text-[26px]' />
-        <DropDownMenu
-          items={['laptop', 'pc']}
-          actions={[
-            () => {
-              console.log('laptop')
-            },
-            () => {
-              console.log('pc')
-            }
-          ]}
+      <div className=' relative flex justify-around items-center'>
+        <FaBars
+          className='text-white z-50 text-[26px]'
+          onClick={handleOpenCloseMenu}
         />
+        {isOpenMenu && (
+          <DropDownMenu
+            items={data}
+            actions={data.map((item) => () => {
+              router.push(pathHelper.product(item))
+            })}
+          />
+        )}
 
         <div className=' z-20 w-[227px] md:w-[518px] lg:w-[800px]'>
           <Search />

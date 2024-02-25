@@ -1,7 +1,8 @@
 const pathHelper = {
   signin: () => '/signin',
   signup: () => '/signup',
-  home: () => '/',
-};
+  product: (type: String) => `/products/${type}`,
+  home: () => '/'
+}
 
-export { pathHelper };
+export { pathHelper }
