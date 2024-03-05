@@ -37,7 +37,7 @@ export default function RootLayout({
           <Provider defaultUser={defaultUser}>
             <Header />
             <main className='flex-grow'>{children}</main>
-            {/* <Footer /> */}
+            <Footer />
             <Toaster position='bottom-center' reverseOrder={false} />
           </Provider>
         </div>

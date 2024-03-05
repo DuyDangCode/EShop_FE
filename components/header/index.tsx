@@ -147,6 +147,7 @@ export default function Header() {
             actions={data.map((item) => () => {
               router.push(pathHelper.product(item))
             })}
+            customeStyles={''}
           />
         )}
 
