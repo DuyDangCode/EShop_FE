@@ -36,8 +36,8 @@ export default function RootLayout({
         <div className='flex flex-col min-h-screen'>
           <Provider defaultUser={defaultUser}>
             <Header />
-            <main className='flex-grow'>{children}</main>
-            {/* <Footer /> */}
+            <main className=' min-h-screen'>{children}</main>
+            <Footer />
             <Toaster position='bottom-center' reverseOrder={false} />
           </Provider>
         </div>

@@ -1,23 +1,26 @@
-import Link from 'next/link';
+import Link from 'next/link'
+import DropDownMenu from '../DropdownMenu'
+import { convertArrObject2ArrString } from '@/utils/object.uitls'
+import DropDownMenuFooter from '../DropDownMenuFooter'
 
 // type of links
 interface DataInterface {
-  id: number;
-  label: string;
+  id: number
+  label: string
 }
 
 // Address information tyoe
 interface AddressInterface {
-  address: string;
-  phones: string;
-  openTime: OpenTimeInterface[];
-  email: string;
+  address: string
+  phones: string
+  openTime: OpenTimeInterface[]
+  email: string
 }
 
 interface OpenTimeInterface {
-  weekday: string;
-  start: string;
-  end: string;
+  weekday: string
+  start: string
+  end: string
 }
 
 const Footer = () => {
@@ -30,8 +33,8 @@ const Footer = () => {
     { id: 5, label: 'Orders and Returns' },
     { id: 6, label: 'Contact Us' },
     { id: 7, label: 'Advanced Search' },
-    { id: 8, label: 'Newskletter Subcription' },
-  ];
+    { id: 8, label: 'Newskletter Subcription' }
+  ]
   const pcPartsData: DataInterface[] = [
     { id: 0, label: 'CPUS' },
     { id: 1, label: 'Add On Cards' },
@@ -42,24 +45,24 @@ const Footer = () => {
     { id: 6, label: 'RAM (Memory)' },
     { id: 7, label: 'Software' },
     { id: 8, label: 'Speakers / Headsets' },
-    { id: 9, label: 'Motherboards' },
-  ];
+    { id: 9, label: 'Motherboards' }
+  ]
   const destopPCsData: DataInterface[] = [
     { id: 0, label: 'Custom PCs' },
     { id: 1, label: 'Servers' },
     { id: 2, label: 'MSI All-In-One PCs' },
     { id: 3, label: 'HP/Compaq PCs' },
     { id: 4, label: 'ASUS PCs' },
-    { id: 5, label: 'Tecs PCs' },
-  ];
+    { id: 5, label: 'Tecs PCs' }
+  ]
   const laptopData: DataInterface[] = [
     { id: 0, label: 'Evryday Use Notebooks' },
     { id: 1, label: 'MSI Workstation Series' },
     { id: 2, label: 'MSI Prestige Series' },
     { id: 3, label: 'Tablets and Pads' },
     { id: 4, label: 'Netbooks' },
-    { id: 5, label: 'Infinity Gaming Notebooks' },
-  ];
+    { id: 5, label: 'Infinity Gaming Notebooks' }
+  ]
 
   const address: AddressInterface = {
     address: '1234 Street Adress City Address 1234',
@@ -67,37 +70,39 @@ const Footer = () => {
     openTime: [
       { weekday: 'Monday-Thursday', start: '9:00 AM', end: '5:30 PM' },
       { weekday: 'Friday', start: '9:00 AM', end: '6:00 PM' },
-      { weekday: 'Saturday', start: '11:00 AM', end: '5:00 PM' },
+      { weekday: 'Saturday', start: '11:00 AM', end: '5:00 PM' }
     ],
-    email: 'shop@email.com',
-  };
+    email: 'shop@email.com'
+  }
 
   return (
-    <div className='flex h-[521px] w-full bg-[#020203] flex-col py-[10px] px-[100px]'>
+    <div className='flex h-fit min-h-[32rem]  gap-5 lg:gap3  w-full bg-[#020203] flex-col py-[10px] px-[100px]'>
       {/*title and subscribe*/}
-      <div className='flex-[3] flex justify-between items-center'>
+      <div className='lg:flex-[3] flex lg:flex-row gap-5 flex-col justify-between items-center lg:gap-1 '>
         <div className='flex flex-col gap-2'>
-          <h1 className='text-[30px] text-white font-medium'>
+          <h1 className=' text-[1.5rem]  text-white font-medium'>
             Sign Up To Our Newletter.{' '}
           </h1>
-          <h2 className='text-[15px] text-white'>
+          <h2 className=' text-[0.7rem] text-white'>
             Be the first to hear about the latest offers.
           </h2>
         </div>
         <div className='flex gap-5'>
           <input
             type='email'
-            className='rounded-[4px] bg-transparent border-white border-2 p-[10px] h-[40px] md:w-[300px] text-white'
+            className=' rounded-md bg-transparent border-white border-2 p-[0.65rem] h-[2.5rem] w-[12.5rem] lg:w-[20rem] text-white'
             placeholder='Your email'
           />
-          <button className='bg-[#0156FF] text-white rounded-[50px] w-[151px] h-[40px]'>
+          <button className=' bg-color-3 text-white rounded-3xl w-[9.5rem] h-[2.5rem]'>
             Subscribe
           </button>
         </div>
       </div>
 
+      {/* laptop design */}
+
       {/*table of links*/}
-      <div className='flex-[6] flex w-full justify-between'>
+      <div className=' hidden lg:flex flex-[6]  w-full justify-between'>
         <div>
           <h3 className='text-gray-400 font-bold'>Information</h3>
           <div className='flex flex-col'>
@@ -191,13 +196,43 @@ const Footer = () => {
         </div>
       </div>
 
+      {/* mobile design and tablet design */}
+
+      <div className='lg:hidden flex flex-col w-full h-fit gap-5'>
+        <DropDownMenuFooter
+          title='Information'
+          names={convertArrObject2ArrString(inforData)}
+          links={[]}
+        />
+        <DropDownMenuFooter
+          title='PC Parts'
+          names={convertArrObject2ArrString(pcPartsData)}
+          links={[]}
+        />
+        <DropDownMenuFooter
+          title='Desktop PCs'
+          names={convertArrObject2ArrString(destopPCsData)}
+          links={[]}
+        />
+        <DropDownMenuFooter
+          title='Laptops'
+          names={convertArrObject2ArrString(laptopData)}
+          links={[]}
+        />
+        <DropDownMenuFooter
+          title='Address'
+          names={convertArrObject2ArrString(inforData)}
+          links={[]}
+        />
+      </div>
+
       <div className='flex justify-end flex-[1]'>
-        <h3 className='text-white text-[10px]'>
+        <h3 className='text-white text-[0.65rem]'>
           Copyright © 2020 Shop Pty. Ltd.
         </h3>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
