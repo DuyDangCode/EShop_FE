@@ -76,9 +76,9 @@ const Footer = () => {
   }
 
   return (
-    <div className='flex h-[521px] w-full bg-[#020203] flex-col py-[10px] px-[100px]'>
+    <div className='flex h-fit min-h-[32rem]  gap-5 lg:gap3  w-full bg-[#020203] flex-col py-[10px] px-[100px]'>
       {/*title and subscribe*/}
-      <div className='lg:flex-[3] flex lg:flex-row flex-col justify-between items-center gap-1 '>
+      <div className='lg:flex-[3] flex lg:flex-row gap-5 flex-col justify-between items-center lg:gap-1 '>
         <div className='flex flex-col gap-2'>
           <h1 className=' text-[1.5rem]  text-white font-medium'>
             Sign Up To Our Newletter.{' '}
@@ -90,7 +90,7 @@ const Footer = () => {
         <div className='flex gap-5'>
           <input
             type='email'
-            className=' rounded-md bg-transparent border-white border-2 p-[0.65rem] h-[2.5rem] md:w-[12.5rem] text-white'
+            className=' rounded-md bg-transparent border-white border-2 p-[0.65rem] h-[2.5rem] w-[12.5rem] lg:w-[20rem] text-white'
             placeholder='Your email'
           />
           <button className=' bg-color-3 text-white rounded-3xl w-[9.5rem] h-[2.5rem]'>
@@ -198,7 +198,7 @@ const Footer = () => {
 
       {/* mobile design and tablet design */}
 
-      <div className='lg:hidden'>
+      <div className='lg:hidden flex flex-col w-full h-fit gap-5'>
         <DropDownMenuFooter
           title='Information'
           names={convertArrObject2ArrString(inforData)}
@@ -206,17 +206,17 @@ const Footer = () => {
         />
         <DropDownMenuFooter
           title='PC Parts'
-          names={convertArrObject2ArrString(inforData)}
+          names={convertArrObject2ArrString(pcPartsData)}
           links={[]}
         />
         <DropDownMenuFooter
           title='Desktop PCs'
-          names={convertArrObject2ArrString(inforData)}
+          names={convertArrObject2ArrString(destopPCsData)}
           links={[]}
         />
         <DropDownMenuFooter
           title='Laptops'
-          names={convertArrObject2ArrString(inforData)}
+          names={convertArrObject2ArrString(laptopData)}
           links={[]}
         />
         <DropDownMenuFooter
