@@ -4,7 +4,6 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import { Toaster } from 'react-hot-toast'
 import { Provider } from './provider'
 import { cookies } from 'next/headers'
 import { ROLES, USER_ID } from '@/constrant/cookiesName'
@@ -36,9 +35,8 @@ export default function RootLayout({
         <div className='flex flex-col min-h-screen'>
           <Provider defaultUser={defaultUser}>
             <Header />
-            <main className=' min-h-screen'>{children}</main>
+            <main className=' min-h-screen px-12 py-8 flex'>{children}</main>
             <Footer />
-            <Toaster position='bottom-center' reverseOrder={false} />
           </Provider>
         </div>
       </body>
