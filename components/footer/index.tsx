@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import DropDownMenu from '../DropdownMenu'
-import { convertArrObject2ArrString } from '@/utils/object.uitls'
+import { convertArrObject2ArrString } from '@/utils/object.utils'
 import DropDownMenuFooter from '../DropDownMenuFooter'
 
 // type of links
