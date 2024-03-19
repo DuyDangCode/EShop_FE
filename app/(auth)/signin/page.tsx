@@ -1,7 +1,7 @@
 'use client'
 import { BASE_URL_DEV, X_API_KEY } from '@/constrant/system'
 import UserContext from '@/context/userContext'
-import { apiHelperDEV, pathHelper } from '@/helper/router'
+import { apiHelper, pathHelper } from '@/helper/router'
 import { saveCookies } from '@/utils/cookies.utils'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
@@ -20,7 +20,7 @@ export default function SignIn() {
     mutationFn: async () => {
       return await axios
         .post(
-          apiHelperDEV.signIn(),
+          apiHelper.signIn(),
           {
             username: username,
             password: password

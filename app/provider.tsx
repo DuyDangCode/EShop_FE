@@ -8,18 +8,14 @@ import { queryClient } from './queryClient'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import axios from 'axios'
 import { X_API_KEY } from '@/constrant/system'
+import { getCookie } from 'cookies-next'
 
-export function Provider({
-  children,
-  defaultUser
-}: {
-  children: ReactNode
-  defaultUser: string | null
-}) {
-  const [user, setUser] = useState(defaultUser)
+export function Provider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<string | undefined>(undefined)
   useEffect(() => {
-    setUser(defaultUser)
-  }, [defaultUser])
+    const userId = getCookie('userId')
+    setUser(userId)
+  }, [])
   return (
     <QueryClientProvider client={queryClient}>
       <UserContext.Provider value={{ user, setUser }}>

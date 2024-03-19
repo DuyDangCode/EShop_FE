@@ -8,9 +8,10 @@ const pathHelper = {
   404: () => '404'
 }
 
-const apiHelperDEV = {
+const apiHelper = {
   signIn: () => `${BASE_URL_DEV}/users/signIn`,
-  signUp: () => `${BASE_URL_DEV}/users/signUp`
+  signUp: () => `${BASE_URL_DEV}/users/signUp`,
+  logout: () => `${BASE_URL_DEV}/users/signout`
 }
 
-export { pathHelper, apiHelperDEV }
+export { pathHelper, apiHelper }

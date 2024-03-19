@@ -10,7 +10,7 @@ import {
   ROLES,
   USER_ID
 } from '@/constrant/cookiesName'
-import { setCookie } from 'cookies-next'
+import { deleteCookie, setCookie } from 'cookies-next'
 
 const saveCookies = (
   accessToken: string,
@@ -29,4 +29,16 @@ const saveCookies = (
   }
 }
 
-export { saveCookies }
+const removeCookiesWhenLogout = () => {
+  try {
+    deleteCookie(USER_ID)
+    deleteCookie(ACCESS_TOKEN)
+    deleteCookie(REFRESH_TOKEN)
+    deleteCookie(ROLES)
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
+export { saveCookies, removeCookiesWhenLogout }

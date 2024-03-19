@@ -25,12 +25,11 @@ export default function RootLayout({
   //   userId: cookies().get(USER_ID)?.value,
   //   roles: cookies().get(ROLES)?.value,
   // };
-  const defaultUser: string | null = null
   return (
     <html lang='en'>
       <body className={`${poppins.className} text-slate-700`}>
         <div className='flex flex-col min-h-screen'>
-          <Provider defaultUser={defaultUser}>
+          <Provider>
             <Header />
             <main className=' min-h-screen px-12 py-8 flex'>{children}</main>
             <Footer />
