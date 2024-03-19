@@ -6,13 +6,15 @@ import { ReactNode, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { queryClient } from './queryClient'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import axios from 'axios'
+import { X_API_KEY } from '@/constrant/system'
 
 export function Provider({
   children,
   defaultUser
 }: {
   children: ReactNode
-  defaultUser: User
+  defaultUser: string | null
 }) {
   const [user, setUser] = useState(defaultUser)
   useEffect(() => {

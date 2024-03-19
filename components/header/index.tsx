@@ -156,8 +156,27 @@ export default function Header() {
         </div>
         <div className=' flex w-fit gap-2 md:w-[9.5rem] md:justify-around items-center'>
           <FaMagnifyingGlass className='hidden text-black text-[19px] lg:block' />
-          <FaCartShopping className=' text-white lg:text-black -scale-x-[1] text-[1.25rem]' />
-          <FaUser className=' text-white text-[1.5rem] lg:text-black' />
+          {user ? (
+            <>
+              <FaCartShopping className=' text-white lg:text-black -scale-x-[1] text-[1.25rem]' />
+              <FaUser className=' text-white text-[1.5rem] lg:text-black' />
+            </>
+          ) : (
+            <>
+              <Link
+                href={pathHelper.signin()}
+                className=' md:text-[0.8rem] text-[0.6rem] md:text-color-3 text-white'
+              >
+                Sign-in
+              </Link>
+              <Link
+                href={pathHelper.signup()}
+                className=' md:text-[0.8rem] text-[0.6rem] md:text-color-3 text-white'
+              >
+                Sign-up
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

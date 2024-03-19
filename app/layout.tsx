@@ -25,10 +25,7 @@ export default function RootLayout({
   //   userId: cookies().get(USER_ID)?.value,
   //   roles: cookies().get(ROLES)?.value,
   // };
-  const defaultUser: User = {
-    userId: null,
-    roles: null
-  }
+  const defaultUser: string | null = null
   return (
     <html lang='en'>
       <body className={`${poppins.className} text-slate-700`}>

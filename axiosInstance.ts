@@ -1,31 +1,28 @@
-'use server';
-
-import { cookies } from 'next/headers';
-import axios from 'axios';
-import { BASE_URL, X_API_KEY } from '@/constrant/system';
+import { getCookie, setCookie, deleteCookie } from 'cookies-next'
+import axios from 'axios'
+import { BASE_URL, X_API_KEY } from '@/constrant/system'
 import {
   ACCESS_TOKEN,
   REFRESH_TOKEN,
   ROLES,
-  USER_ID,
-} from './constrant/cookiesName';
+  USER_ID
+} from './constrant/cookiesName'
 import {
   ACCESS_TOKEN_TIME,
-  REFRESH_TOKEN_TIME,
-} from './constrant/cookiesMaxAge';
-
-const cookieStorage = cookies();
+  REFRESH_TOKEN_TIME
+} from './constrant/cookiesMaxAge'
+import { cookies } from 'next/headers'
 
 const apiInstance = axios.create({
-  baseURL: BASE_URL,
-});
+  baseURL: BASE_URL
+})
 
 apiInstance.interceptors.request.use(async (request) => {
-  request.headers['x-api-key'] = X_API_KEY;
-  const userId = cookieStorage.get(USER_ID)?.value;
-  request.headers['x-client-id'] = userId;
+  request.headers['x-api-key'] = X_API_KEY
+  const userId = getCookie(USER_ID)
+  request.headers['x-client-id'] = userId
 
-  const accessToken = cookieStorage.get(ACCESS_TOKEN)?.value;
+  const accessToken = getCookie(ACCESS_TOKEN)
   if (!accessToken) {
     try {
       const res = await axios.post(
@@ -35,39 +32,39 @@ apiInstance.interceptors.request.use(async (request) => {
           headers: {
             'x-api-key': X_API_KEY,
             'x-client-id': userId,
-            'refresh-token': cookieStorage.get('refreshToken')?.value,
-          },
+            'refresh-token': getCookie('refreshToken')
+          }
         }
-      );
-      const newAccessToken = res.data.metadata.accessToken;
-      const newRefreshToken = res.data.metadata.refreshToken;
-      cookieStorage.set(ACCESS_TOKEN, newAccessToken, {
-        maxAge: ACCESS_TOKEN_TIME,
-      });
-      cookieStorage.set(REFRESH_TOKEN, newRefreshToken, {
-        maxAge: REFRESH_TOKEN_TIME,
-      });
-      request.headers['authorization'] = newAccessToken;
-      console.log('oke');
+      )
+      const newAccessToken = res.data.metadata.accessToken
+      const newRefreshToken = res.data.metadata.refreshToken
+      setCookie(ACCESS_TOKEN, newAccessToken, {
+        maxAge: ACCESS_TOKEN_TIME
+      })
+      setCookie(REFRESH_TOKEN, newRefreshToken, {
+        maxAge: REFRESH_TOKEN_TIME
+      })
+      request.headers['authorization'] = newAccessToken
+      console.log('oke')
     } catch (error) {}
   } else {
-    request.headers['authorization'] = accessToken;
+    request.headers['authorization'] = accessToken
   }
-  return request;
-});
+  return request
+})
 
 apiInstance.interceptors.response.use(
   (response) => {
-    return response;
+    return response
   },
   (error) => {
     // console.log('error', error.response);
-    cookieStorage.delete(USER_ID);
-    cookieStorage.delete(ACCESS_TOKEN);
-    cookieStorage.delete(REFRESH_TOKEN);
-    cookieStorage.delete(ROLES);
-    return error;
+    deleteCookie(USER_ID)
+    deleteCookie(ACCESS_TOKEN)
+    deleteCookie(REFRESH_TOKEN)
+    deleteCookie(ROLES)
+    return error
   }
-);
+)
 
-export default apiInstance;
+export default apiInstance
