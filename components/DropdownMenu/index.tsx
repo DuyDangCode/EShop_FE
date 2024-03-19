@@ -11,7 +11,6 @@ export default function DropDownMenu({
   actions,
   customeStyles
 }: DropDownMenuProps) {
-  console.log(items)
   return (
     <div
       className={

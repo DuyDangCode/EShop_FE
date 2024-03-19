@@ -23,7 +23,13 @@ import {
   FaInstagram
 } from 'react-icons/fa6'
 import DropDownMenu from '../DropdownMenu'
-import { pathHelper } from '@/helper/router'
+import { apiHelper, pathHelper } from '@/helper/router'
+import Dropdown from '../Dropdown'
+import { useMutation } from '@tanstack/react-query'
+import { X_API_KEY } from '@/constrant/system'
+import { getCookie } from 'cookies-next'
+import { ACCESS_TOKEN, USER_ID } from '@/constrant/cookiesName'
+import { removeCookiesWhenLogout } from '@/utils/cookies.utils'
 
 export default function Header() {
   const [search, setSearch] = useState(SearchImg)
@@ -44,6 +50,7 @@ export default function Header() {
   const [isPending, startTransition] = useTransition()
   const { user, setUser } = useContext(UserContext)
   const [isOpenMenu, setIsOpenMenu] = useState(false)
+  const [isDisplayMenu, setIsDisplayMenu] = useState(false)
 
   useEffect(() => {
     if (fromState.status !== 0 && fromState.status !== 200) {
@@ -65,6 +72,24 @@ export default function Header() {
       })
     }
   }, [fromState])
+
+  const logOut = () => {
+    axios.post(
+      apiHelper.logout(),
+      {},
+      {
+        headers: {
+          'x-api-key': X_API_KEY,
+          'x-client-id': getCookie(USER_ID),
+          authorization: getCookie(ACCESS_TOKEN)
+        }
+      }
+    )
+    if (removeCookiesWhenLogout()) {
+      setUser(undefined)
+      setIsDisplayMenu(false)
+    }
+  }
 
   const data = [
     'Laptops',
@@ -97,7 +122,7 @@ export default function Header() {
   }
 
   return (
-    <div className=' flex-col h-[104px] w-full bg-color-3 lg:bg-white lg:border-[1px] lg:border-black '>
+    <div className=' relative flex-col h-[104px] w-full bg-color-3 lg:bg-white lg:border-[1px] lg:border-black '>
       <div className='flex items-center justify-end gap-2 lg:justify-around md:gap-10 h-[40px] w-full bg-black relative'>
         <div className='flex justify-center items-start z-10 w-[64px] h-[60px] absolute bottom-[-30px] left-3 bg-color-3 rounded-full lg:hidden'>
           <Link href={pathHelper.home()}>
@@ -156,10 +181,41 @@ export default function Header() {
         </div>
         <div className=' flex w-fit gap-2 md:w-[9.5rem] md:justify-around items-center'>
           <FaMagnifyingGlass className='hidden text-black text-[19px] lg:block' />
-          <FaCartShopping className=' text-white lg:text-black -scale-x-[1] text-[1.25rem]' />
-          <FaUser className=' text-white text-[1.5rem] lg:text-black' />
+          {user ? (
+            <>
+              <FaCartShopping className=' text-white lg:text-black -scale-x-[1] text-[1.25rem]' />
+
+              <FaUser
+                className=' text-white text-[1.5rem] lg:text-black'
+                onClick={() => {
+                  setIsDisplayMenu(true)
+                }}
+                onMouseEnter={() => {
+                  setIsDisplayMenu(true)
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <Link
+                href={pathHelper.signin()}
+                className=' md:text-[0.8rem] text-[0.6rem] md:text-color-3 text-white'
+              >
+                Sign-in
+              </Link>
+              <Link
+                href={pathHelper.signup()}
+                className=' md:text-[0.8rem] text-[0.6rem] md:text-color-3 text-white'
+              >
+                Sign-up
+              </Link>
+            </>
+          )}
         </div>
       </div>
+      <Dropdown display={isDisplayMenu} setDisplay={setIsDisplayMenu}>
+        <button onClick={logOut}>Logout</button>
+      </Dropdown>
     </div>
   )
 }
