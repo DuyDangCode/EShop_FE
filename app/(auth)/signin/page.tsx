@@ -33,12 +33,12 @@ export default function SignIn() {
         )
         .then((res) => res.data)
         .catch((err) => {
-          console.log(err)
-          setIsPending(false)
+          throw err
         })
     },
     gcTime: 0,
     onSuccess(data, variables, context) {
+      console.log('oke')
       if (
         saveCookies(
           data.metadata.accessToken,
@@ -56,6 +56,12 @@ export default function SignIn() {
           setIsPending(false)
         }
       }
+    },
+    onError(err: any) {
+      console.log(err?.response.data.message)
+
+      setIsPending(false)
+      toast.error(err?.response.data.message)
     }
   })
 
