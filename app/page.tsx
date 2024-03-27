@@ -1,5 +1,5 @@
 'use client'
-import ProductCard from '@/components/ProductCard/index'
+import ProductCard from '../components/ProductCard'
 import { pathHelper } from '@/helper/router'
 import Link from 'next/link'
 import { Carousel } from 'react-responsive-carousel'
