@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import DropDownMenu from '../DropdownMenu'
+import DropDownMenu from '../DropdownMenu/DropdownMenu'
 import { convertArrObject2ArrString } from '@/utils/object.utils'
 import DropDownMenuFooter from '../DropDownMenuFooter'
 

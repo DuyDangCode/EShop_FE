@@ -22,9 +22,9 @@ import {
   FaFacebook,
   FaInstagram
 } from 'react-icons/fa6'
-import DropDownMenu from '../DropdownMenu'
+import DropDownMenu from '../DropdownMenu/DropdownMenu'
 import { apiHelper, pathHelper } from '@/helper/router'
-import Dropdown from '../Dropdown'
+import Dropdown from '../Dropdown/Dropdown'
 import { useMutation } from '@tanstack/react-query'
 import { X_API_KEY } from '@/constrant/system'
 import { getCookie } from 'cookies-next'
