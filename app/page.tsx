@@ -1,11 +1,8 @@
 'use client'
-import ProductCard from '@/components/ProductCard'
-import { pathHelper } from '@/helper/router'
-import Link from 'next/link'
+import ProductCard from '@/components/ProductCard/ProductCard'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import carousel1 from '@/public/vector/carousel1.svg'
-import carousel2 from '@/public/vector/carousel2.svg'
 import Image from 'next/image'
 
 export default function Home() {
