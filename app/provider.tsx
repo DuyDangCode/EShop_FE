@@ -1,22 +1,28 @@
-'use client';
+'use client'
 
-import UserContext, { User } from '@/context/userContext';
-import { ReactNode, useEffect, useState } from 'react';
+import UserContext, { User } from '@/context/userContext'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { ReactNode, useEffect, useState } from 'react'
+import { Toaster } from 'react-hot-toast'
+import { queryClient } from './queryClient'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import axios from 'axios'
+import { X_API_KEY } from '@/constrant/system'
+import { getCookie } from 'cookies-next'
 
-export function Provider({
-  children,
-  defaultUser,
-}: {
-  children: ReactNode;
-  defaultUser: User;
-}) {
-  const [user, setUser] = useState(defaultUser);
+export function Provider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<string | undefined>(undefined)
   useEffect(() => {
-    setUser(defaultUser);
-  }, [defaultUser]);
+    const userId = getCookie('userId')
+    setUser(userId)
+  }, [])
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
-  );
+    <QueryClientProvider client={queryClient}>
+      <UserContext.Provider value={{ user, setUser }}>
+        {children}
+        <ReactQueryDevtools initialIsOpen={true} />
+        <Toaster position='bottom-center' reverseOrder={false} />
+      </UserContext.Provider>
+    </QueryClientProvider>
+  )
 }
