@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Monior_Example from '@/public/vector/monitor_example.svg'
 import { formatAmount, formatMoney } from '@/utils/string.utils'
 import { FaCircleCheck, FaPhone } from 'react-icons/fa6'
-import RatingStar from '../ratingStar'
+import RatingStar from '@/components/RatingStar/RatingStar'
 
 interface ProductCardProps {
   name: string
