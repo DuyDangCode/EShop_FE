@@ -1,8 +1,9 @@
 import Image from 'next/image'
-import RatingStar from '../RatingStar'
+
 import Monior_Example from '@/public/vector/monitor_example.svg'
 import { formatAmount, formatMoney } from '@/utils/string.utils'
 import { FaCircleCheck, FaPhone } from 'react-icons/fa6'
+import RatingStar from '../ratingStar'
 
 interface ProductCardProps {
   name: string
@@ -24,7 +25,7 @@ export default function ProductCard({
   quantity
 }: ProductCardProps) {
   return (
-    <div className=' px-5 py-3 flex flex-col  max-w-[14.5rem] min-h-[21.65rem] h-fit hover:border-purple-500 border-transparent border-[1px] duration-500 hover:translate-y-[-1rem]'>
+    <div className=' px-5 py-3 flex flex-col  max-w-[14.5rem] min-h-[21.65rem] h-fit w-fit hover:border-purple-500 border-transparent border-[1px] duration-500 hover:translate-y-[-1rem]'>
       {/* status */}
       {quantity > 0 ? (
         <div className=' flex flex-row gap-2 text-color-green'>
