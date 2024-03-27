@@ -31,7 +31,9 @@ export default function RootLayout({
         <div className='flex flex-col min-h-screen'>
           <Provider>
             <Header />
-            <main className=' min-h-screen px-12 py-8 flex'>{children}</main>
+            <main className=' min-h-screen max-w-full py-8 lg:px-10 md:px-5 sm:px-2'>
+              {children}
+            </main>
             <Footer />
           </Provider>
         </div>
