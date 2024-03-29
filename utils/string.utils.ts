@@ -20,4 +20,8 @@ const convertToString = (number: any): string => {
   }
 }
 
-export { formatMoney, formatAmount, convertToString }
+const decodeURI = (uri: string): string => {
+  return uri.replace('%20', ' ').replace('&', 'and')
+}
+
+export { formatMoney, formatAmount, convertToString, decodeURI }
