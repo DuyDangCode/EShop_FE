@@ -9,6 +9,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import axios from 'axios'
 import { X_API_KEY } from '@/constrant/system'
 import { getCookie } from 'cookies-next'
+import { MantineProvider } from '@mantine/core'
 
 export function Provider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<string | undefined>(undefined)
@@ -17,12 +18,14 @@ export function Provider({ children }: { children: ReactNode }) {
     setUser(userId)
   }, [])
   return (
-    <QueryClientProvider client={queryClient}>
-      <UserContext.Provider value={{ user, setUser }}>
-        {children}
-        <ReactQueryDevtools initialIsOpen={true} />
-        <Toaster position='bottom-center' reverseOrder={false} />
-      </UserContext.Provider>
-    </QueryClientProvider>
+    <MantineProvider>
+      <QueryClientProvider client={queryClient}>
+        <UserContext.Provider value={{ user, setUser }}>
+          {children}
+          <ReactQueryDevtools initialIsOpen={true} />
+          <Toaster position='bottom-center' reverseOrder={false} />
+        </UserContext.Provider>
+      </QueryClientProvider>
+    </MantineProvider>
   )
 }

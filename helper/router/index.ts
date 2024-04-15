@@ -5,7 +5,8 @@ const pathHelper = {
   signup: () => '/signup',
   product: (type: String) => `/products/${type}`,
   home: () => '/',
-  404: () => '404'
+  404: () => '404',
+  cart: () => '/cart'
 }
 
 const apiHelper = {
