@@ -23,7 +23,7 @@ export function Provider({ children }: { children: ReactNode }) {
         <UserContext.Provider value={{ user, setUser }}>
           {children}
           <ReactQueryDevtools initialIsOpen={true} />
-          <Toaster position='bottom-center' reverseOrder={false} />
+          <Toaster position='bottom-right' reverseOrder={false} />
         </UserContext.Provider>
       </QueryClientProvider>
     </MantineProvider>
