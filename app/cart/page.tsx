@@ -44,6 +44,7 @@ export default function CartPage() {
     useState<number>(productLength)
   const maxCost = useRef(0)
   useEffect(() => {
+    maxCost.current = 0
     for (let i = 0; i < productLength; i++) {
       maxCost.current += Data_Example[i].price * Data_Example[i].quantity
       console.log(maxCost.current)
@@ -81,18 +82,18 @@ export default function CartPage() {
                 }}
               />
             </div>
-            <p className=' flex justify-center col-span-6 text-ellipsis whitespace-nowrap overflow-hidden mx-1'>
+            <p className=' flex justify-center col-span-5  text-ellipsis whitespace-nowrap overflow-hidden mx-1'>
               Product
             </p>
-            <p className='flex justify-center text-ellipsis col-span-2 whitespace-nowrap overflow-hidden mx-1'>
+            <p className='md:flex justify-center text-ellipsis hidden col-span-2 whitespace-nowrap overflow-hidden mx-1'>
               Price
             </p>
-            <div className='flex justify-center col-span-2 mx-1'>
+            <div className='flex justify-center col-span-3 mx-1'>
               <p className='text-ellipsis whitespace-nowrap overflow-hidden'>
                 Quantity
               </p>
             </div>
-            <div className='flex justify-center col-span-2  mx-1'>
+            <div className='flex justify-center md:col-span-2 col-span-4  mx-1'>
               <p className='text-ellipsis whitespace-nowrap overflow-hidden'>
                 Cost
               </p>
