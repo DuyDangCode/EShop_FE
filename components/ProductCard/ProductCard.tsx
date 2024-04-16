@@ -25,7 +25,7 @@ export default function ProductCard({
   quantity
 }: ProductCardProps) {
   return (
-    <div className=' px-5 py-3 flex flex-col  max-w-[14.5rem] min-h-[21.65rem] h-fit w-fit hover:border-purple-500 border-transparent border-[1px] duration-500 hover:translate-y-[-1rem]'>
+    <div className=' px-5 py-3 flex flex-col bg-white  max-w-[14.5rem] min-h-[21.65rem] h-fit w-fit hover:border-purple-500 border-transparent border-[1px] duration-500 hover:translate-y-[-1rem]'>
       {/* status */}
       {quantity > 0 ? (
         <div className=' flex flex-row gap-2 text-color-green'>

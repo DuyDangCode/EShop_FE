@@ -183,8 +183,9 @@ export default function Header() {
           <FaMagnifyingGlass className='hidden text-black text-[19px] lg:block' />
           {user ? (
             <>
-              <FaCartShopping className=' text-white lg:text-black -scale-x-[1] text-[1.25rem]' />
-
+              <Link href={pathHelper.cart()} className=' w-fit h-fit'>
+                <FaCartShopping className=' cursor-pointer text-white lg:text-black -scale-x-[1] text-[1.25rem]' />
+              </Link>
               <FaUser
                 className=' text-white text-[1.5rem] lg:text-black'
                 onClick={() => {
