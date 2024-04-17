@@ -30,6 +30,7 @@ import { X_API_KEY } from '@/constrant/system'
 import { getCookie } from 'cookies-next'
 import { ACCESS_TOKEN, USER_ID } from '@/constrant/cookiesName'
 import { removeCookiesWhenLogout } from '@/utils/cookies.utils'
+import { convertToSlug } from '@/utils/string.utils'
 
 export default function Header() {
   const [search, setSearch] = useState(SearchImg)
@@ -107,7 +108,7 @@ export default function Header() {
         {data.map((item) => (
           <Link
             key={item}
-            href={pathHelper.product(item)}
+            href={pathHelper.product(convertToSlug(item))}
             className='hidden lg:block text-black font-normal'
           >
             {item}

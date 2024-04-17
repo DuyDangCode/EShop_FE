@@ -1,25 +1,16 @@
 'use client'
 import ProductCard from '@/components/ProductCard/ProductCard'
-import { Carousel } from 'react-responsive-carousel'
-import 'react-responsive-carousel/lib/styles/carousel.min.css'
-import carousel1 from '@/public/vector/carousel1.svg'
-import Image from 'next/image'
+import { Pagination } from '@mantine/core'
 
-export default function Home() {
+interface CategoryPageProps {
+  params: {
+    categoryName: string
+  }
+}
+
+export default function CategoryPage({ params }: CategoryPageProps) {
   return (
-    <div className='w-full h-full flex flex-col items-center  overflow-hidden'>
-      <Carousel showArrows={true} className=' w-full md:px-6 px-0'>
-        <div>
-          <Image src={carousel1} alt='' />
-        </div>
-        <div>
-          <Image src={carousel1} alt='' />
-        </div>
-      </Carousel>
-      <h1 className='h-fit w-full px-6 font-bold mb-5 md:text-lg sm:text-sm'>
-        New products
-      </h1>
-
+    <div className='w-full h-full flex justify-center items-center flex-col gap-5'>
       <div className=' md:grid lg:grid-rows-2 lg:grid-cols-5  lg:max-[1300px]:grid-rows-3 lg:max-[1300px]:grid-cols-4 md:grid-rows-4 md:grid-cols-3  md:grid-flow-row h-fit w-full flex flex-col justify-center items-center lg:px-16 md:px-8 px-2'>
         {Array.from({ length: 10 }).map((item, index) => {
           return (
@@ -34,12 +25,13 @@ export default function Home() {
               ratingScore={3}
               reviewAmount={300}
               quantity={0}
-              category='laptop'
-              slug='may-tinh-luong-tu-3'
+              category={params.categoryName}
+              slug={'may-tinh-luong-tu-3'}
             />
           )
         })}
       </div>
+      <Pagination total={10} color='black' />
     </div>
   )
 }
