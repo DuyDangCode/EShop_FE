@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react'
 
 //luong se la nhu sau
 //chinh sua so luong, hay xoa san pham deu se goi api tu server, sau do server tra ve don hang moi roi cap nhap, khong cap nhap tren client
-//todo: cartservice se phai tra ve thong tin cua cart moi
+//TODO: cartservice se phai tra ve thong tin cua cart moi
 
 const Data_Example = [
   {

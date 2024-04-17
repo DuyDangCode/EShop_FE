@@ -1,4 +1,4 @@
-const BASE_URL = process.env.BASE_URL || 'http://localhost:8080/v1/api'
+const BASE_URL = process.env.BASE_URL_PRO || 'http://localhost:8080/v1/api'
 const BASE_URL_DEV = process.env.BASE_URL_DEV || 'http://localhost:8080/v1/api'
 const X_API_KEY =
   process.env.API_KEY ||
