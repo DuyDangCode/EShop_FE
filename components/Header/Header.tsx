@@ -37,6 +37,7 @@ import {
   IconHelp,
   IconLogout
 } from '@tabler/icons-react'
+import toast from 'react-hot-toast'
 
 export default function Header() {
   const [search, setSearch] = useState(SearchImg)
@@ -48,41 +49,14 @@ export default function Header() {
   }
 
   const router = useRouter()
-  const defaultFormState = {
-    status: 0,
-    message: ''
-  }
-  const [fromState, signOutAction] = useFormState(signOut, defaultFormState)
-  const [isLogoutFail, setIsLogoutFail] = useState(false)
-  const [isPending, startTransition] = useTransition()
+
   const { user, setUser } = useContext(UserContext)
   const [isOpenMenu, setIsOpenMenu] = useState(false)
   const [isDisplayMenu, setIsDisplayMenu] = useState(false)
 
-  useEffect(() => {
-    if (fromState.status !== 0 && fromState.status !== 200) {
-      setIsLogoutFail(true)
-      setTimeout(() => {
-        setIsLogoutFail(false)
-      }, 5000)
-    } else if (fromState.status === 200) {
-      startTransition(async () => {
-        try {
-          // const res = await axios.get('/api/me');
-          // console.log(res.data);
-          // setUser({
-          //   userId: res.data.userId,
-          //   roles: res.data.roles,
-          // });
-          // router.replace('/');
-        } catch (error) {}
-      })
-    }
-  }, [fromState])
-
   const logOut = () => {
     axios.post(
-      apiHelper.logout(),
+      apiHelper.logoutPRO(),
       {},
       {
         headers: {
@@ -95,6 +69,7 @@ export default function Header() {
     if (removeCookiesWhenLogout()) {
       setUser(undefined)
       setIsDisplayMenu(false)
+      toast.success('Logout successful')
     }
   }
 
