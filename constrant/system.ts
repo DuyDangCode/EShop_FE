@@ -1,7 +1,7 @@
-const BASE_URL = process.env.BASE_URL_PRO || 'http://localhost:8080/v1/api'
-const BASE_URL_DEV = process.env.BASE_URL_DEV || 'http://localhost:8080/v1/api'
-const X_API_KEY =
-  process.env.API_KEY ||
-  '1b410e2a483096f24dd810148fbe746d111d6ee11e8b56ec4fa147315fa655ab'
+const BASE_URL =
+  process.env.NEXT_PUBLIC_BASE_URL_PRO || 'http://localhost:8080/v1/api'
+const BASE_URL_DEV =
+  process.env.NEXT_PUBLIC_BASE_URL_DEV || 'http://localhost:8080/v1/api'
+const X_API_KEY = process.env.NEXT_PUBLIC_API_KEY || ''
 
 export { BASE_URL, X_API_KEY, BASE_URL_DEV }

@@ -1,4 +1,4 @@
-import { BASE_URL_DEV } from '@/constrant/system'
+import { BASE_URL_DEV, BASE_URL } from '@/constrant/system'
 
 const pathHelper = {
   signin: () => '/signin',
@@ -11,9 +11,12 @@ const pathHelper = {
 }
 
 const apiHelper = {
-  signIn: () => `${BASE_URL_DEV}/users/signIn`,
-  signUp: () => `${BASE_URL_DEV}/users/signUp`,
-  logout: () => `${BASE_URL_DEV}/users/signout`
+  signInDEV: () => `${BASE_URL_DEV}/users/signIn`,
+  signUpDEV: () => `${BASE_URL_DEV}/users/signUp`,
+  logoutDEV: () => `${BASE_URL_DEV}/users/signout`,
+  signInPRO: () => `${BASE_URL}/users/signIn`,
+  signUpPRO: () => `${BASE_URL}/users/signUp`,
+  logoutPRO: () => `${BASE_URL}/users/signout`
 }
 
 export { pathHelper, apiHelper }
