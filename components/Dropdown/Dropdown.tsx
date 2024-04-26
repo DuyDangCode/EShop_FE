@@ -32,7 +32,7 @@ export default function Dropdown({
     <div
       className={
         display
-          ? ' flex flex-col z-50 bg-white   absolute border-black border-[1px] right-5 bottom-[-30px] w-[150px] '
+          ? ' flex flex-col z-50 bg-white   absolute border-black border-[1px] right-5 bottom-[-170px] w-[150px] '
           : 'invisible'
       }
       ref={ref}

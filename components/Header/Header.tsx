@@ -31,6 +31,12 @@ import { getCookie } from 'cookies-next'
 import { ACCESS_TOKEN, USER_ID } from '@/constrant/cookiesName'
 import { removeCookiesWhenLogout } from '@/utils/cookies.utils'
 import { convertToSlug } from '@/utils/string.utils'
+import {
+  IconUser,
+  IconBrandShopee,
+  IconHelp,
+  IconLogout
+} from '@tabler/icons-react'
 
 export default function Header() {
   const [search, setSearch] = useState(SearchImg)
@@ -216,7 +222,35 @@ export default function Header() {
         </div>
       </div>
       <Dropdown display={isDisplayMenu} setDisplay={setIsDisplayMenu}>
-        <button onClick={logOut}>Logout</button>
+        <div
+          className='flex flex-row gap-2 m-1 cursor-pointer hover:bg-slate-200 rounded-md p-1'
+          onClick={() => {}}
+        >
+          <IconUser className=' text-sm' />
+          <p className='font-bold'>Information</p>
+        </div>
+        <div
+          className='flex flex-row gap-2 m-1 cursor-pointer hover:bg-slate-200 rounded-md p-1'
+          onClick={() => {}}
+        >
+          <IconBrandShopee />
+          <p className='font-bold'>Order</p>
+        </div>
+
+        <div
+          className='flex flex-row gap-2 m-1 cursor-pointer hover:bg-slate-200 rounded-md p-1'
+          onClick={() => {}}
+        >
+          <IconHelp className=' text-sm' />
+          <p className='font-bold'>Contact us</p>
+        </div>
+        <div
+          className='flex flex-row gap-2 m-1 cursor-pointer hover:bg-slate-200 rounded-md p-1'
+          onClick={logOut}
+        >
+          <IconLogout className=' text-sm' />
+          <p className='font-bold'>Logout</p>
+        </div>
       </Dropdown>
     </div>
   )
