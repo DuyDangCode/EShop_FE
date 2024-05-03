@@ -20,7 +20,7 @@ import {
   FaUser,
   FaMagnifyingGlass,
   FaFacebook,
-  FaInstagram
+  FaInstagram,
 } from 'react-icons/fa6'
 import DropDownMenu from '../DropdownMenu/DropdownMenu'
 import { apiHelper, pathHelper } from '@/helper/router'
@@ -30,6 +30,14 @@ import { X_API_KEY } from '@/constrant/system'
 import { getCookie } from 'cookies-next'
 import { ACCESS_TOKEN, USER_ID } from '@/constrant/cookiesName'
 import { removeCookiesWhenLogout } from '@/utils/cookies.utils'
+import { convertToSlug } from '@/utils/string.utils'
+import {
+  IconUser,
+  IconBrandShopee,
+  IconHelp,
+  IconLogout,
+} from '@tabler/icons-react'
+import toast from 'react-hot-toast'
 
 export default function Header() {
   const [search, setSearch] = useState(SearchImg)
@@ -41,53 +49,27 @@ export default function Header() {
   }
 
   const router = useRouter()
-  const defaultFormState = {
-    status: 0,
-    message: ''
-  }
-  const [fromState, signOutAction] = useFormState(signOut, defaultFormState)
-  const [isLogoutFail, setIsLogoutFail] = useState(false)
-  const [isPending, startTransition] = useTransition()
+
   const { user, setUser } = useContext(UserContext)
   const [isOpenMenu, setIsOpenMenu] = useState(false)
   const [isDisplayMenu, setIsDisplayMenu] = useState(false)
 
-  useEffect(() => {
-    if (fromState.status !== 0 && fromState.status !== 200) {
-      setIsLogoutFail(true)
-      setTimeout(() => {
-        setIsLogoutFail(false)
-      }, 5000)
-    } else if (fromState.status === 200) {
-      startTransition(async () => {
-        try {
-          // const res = await axios.get('/api/me');
-          // console.log(res.data);
-          // setUser({
-          //   userId: res.data.userId,
-          //   roles: res.data.roles,
-          // });
-          // router.replace('/');
-        } catch (error) {}
-      })
-    }
-  }, [fromState])
-
   const logOut = () => {
     axios.post(
-      apiHelper.logout(),
+      apiHelper.logoutPRO(),
       {},
       {
         headers: {
           'x-api-key': X_API_KEY,
           'x-client-id': getCookie(USER_ID),
-          authorization: getCookie(ACCESS_TOKEN)
-        }
-      }
+          authorization: getCookie(ACCESS_TOKEN),
+        },
+      },
     )
     if (removeCookiesWhenLogout()) {
       setUser(undefined)
       setIsDisplayMenu(false)
+      toast.success('Logout successful')
     }
   }
 
@@ -98,7 +80,7 @@ export default function Header() {
     'Printers & Scanners  ',
     'PC Parts',
     'All Other Products',
-    'Repairs'
+    'Repairs',
   ]
 
   const menuOnPc = () => {
@@ -107,7 +89,7 @@ export default function Header() {
         {data.map((item) => (
           <Link
             key={item}
-            href={pathHelper.product(item)}
+            href={pathHelper.product(convertToSlug(item))}
             className='hidden lg:block text-black font-normal'
           >
             {item}
@@ -183,8 +165,9 @@ export default function Header() {
           <FaMagnifyingGlass className='hidden text-black text-[19px] lg:block' />
           {user ? (
             <>
-              <FaCartShopping className=' text-white lg:text-black -scale-x-[1] text-[1.25rem]' />
-
+              <Link href={pathHelper.cart()} className=' w-fit h-fit'>
+                <FaCartShopping className=' cursor-pointer text-white lg:text-black -scale-x-[1] text-[1.25rem]' />
+              </Link>
               <FaUser
                 className=' text-white text-[1.5rem] lg:text-black'
                 onClick={() => {
@@ -214,7 +197,35 @@ export default function Header() {
         </div>
       </div>
       <Dropdown display={isDisplayMenu} setDisplay={setIsDisplayMenu}>
-        <button onClick={logOut}>Logout</button>
+        <div
+          className='flex flex-row gap-2 m-1 cursor-pointer hover:bg-slate-200 rounded-md p-1'
+          onClick={() => {}}
+        >
+          <IconUser className=' text-sm' />
+          <p className='font-bold'>Information</p>
+        </div>
+        <Link
+          className='flex flex-row gap-2 m-1 cursor-pointer hover:bg-slate-200 rounded-md p-1'
+          href={pathHelper.orders()}
+        >
+          <IconBrandShopee />
+          <p className='font-bold'>Order</p>
+        </Link>
+
+        <div
+          className='flex flex-row gap-2 m-1 cursor-pointer hover:bg-slate-200 rounded-md p-1'
+          onClick={() => {}}
+        >
+          <IconHelp className=' text-sm' />
+          <p className='font-bold'>Contact us</p>
+        </div>
+        <div
+          className='flex flex-row gap-2 m-1 cursor-pointer hover:bg-slate-200 rounded-md p-1'
+          onClick={logOut}
+        >
+          <IconLogout className=' text-sm' />
+          <p className='font-bold'>Logout</p>
+        </div>
       </Dropdown>
     </div>
   )

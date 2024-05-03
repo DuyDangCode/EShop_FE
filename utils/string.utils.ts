@@ -1,3 +1,5 @@
+import slugify from 'slugify'
+
 const formatMoney = (number: number | string | null): string => {
   if (!number) return '$0'
   return number.toLocaleString('en-US', { style: 'currency', currency: 'usd' })
@@ -20,4 +22,8 @@ const convertToString = (number: any): string => {
   }
 }
 
-export { formatMoney, formatAmount, convertToString }
+const convertToSlug = (string = '') => {
+  return slugify(string)
+}
+
+export { formatMoney, formatAmount, convertToString, convertToSlug }
