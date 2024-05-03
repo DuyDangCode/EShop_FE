@@ -20,7 +20,7 @@ import {
   FaUser,
   FaMagnifyingGlass,
   FaFacebook,
-  FaInstagram
+  FaInstagram,
 } from 'react-icons/fa6'
 import DropDownMenu from '../DropdownMenu/DropdownMenu'
 import { apiHelper, pathHelper } from '@/helper/router'
@@ -35,7 +35,7 @@ import {
   IconUser,
   IconBrandShopee,
   IconHelp,
-  IconLogout
+  IconLogout,
 } from '@tabler/icons-react'
 import toast from 'react-hot-toast'
 
@@ -62,9 +62,9 @@ export default function Header() {
         headers: {
           'x-api-key': X_API_KEY,
           'x-client-id': getCookie(USER_ID),
-          authorization: getCookie(ACCESS_TOKEN)
-        }
-      }
+          authorization: getCookie(ACCESS_TOKEN),
+        },
+      },
     )
     if (removeCookiesWhenLogout()) {
       setUser(undefined)
@@ -80,7 +80,7 @@ export default function Header() {
     'Printers & Scanners  ',
     'PC Parts',
     'All Other Products',
-    'Repairs'
+    'Repairs',
   ]
 
   const menuOnPc = () => {
@@ -204,13 +204,13 @@ export default function Header() {
           <IconUser className=' text-sm' />
           <p className='font-bold'>Information</p>
         </div>
-        <div
+        <Link
           className='flex flex-row gap-2 m-1 cursor-pointer hover:bg-slate-200 rounded-md p-1'
-          onClick={() => {}}
+          href={pathHelper.orders()}
         >
           <IconBrandShopee />
           <p className='font-bold'>Order</p>
-        </div>
+        </Link>
 
         <div
           className='flex flex-row gap-2 m-1 cursor-pointer hover:bg-slate-200 rounded-md p-1'

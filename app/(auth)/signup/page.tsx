@@ -47,7 +47,7 @@ export default function SignUp() {
     mutationFn: async () => {
       return await axios
         .post(
-          apiHelper.signUp(),
+          apiHelper.signUpPRO(),
           {
             username: name,
             email: email,

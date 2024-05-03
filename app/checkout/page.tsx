@@ -11,22 +11,22 @@ const Data_Example = [
     name: 'Product 1Product 1Product 1Product 1Product 1Product 1Product 1Product 1Product 1Product 1',
     price: 100,
     quantity: 1,
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 2,
     name: 'Product 2',
     price: 200,
     quantity: 2,
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 3,
     name: 'Product 3',
     price: 300,
     quantity: 3,
-    image: 'https://via.placeholder.com/150'
-  }
+    image: 'https://via.placeholder.com/150',
+  },
 ]
 
 export default function CheckoutPage() {

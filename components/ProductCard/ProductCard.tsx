@@ -34,10 +34,7 @@ export default function ProductCard({
   slug
 }: ProductCardProps) {
   return (
-    <Link
-      href={pathHelper.productDetail(convertToSlug(category), slug)}
-      className=' px-5 py-3 flex flex-col bg-white  max-w-[14.5rem] min-h-[21.65rem] h-fit w-fit hover:border-purple-500 border-transparent border-[1px] duration-500 hover:translate-y-[-1rem]'
-    >
+    <div className=' cursor-pointer px-5 py-3 flex flex-col bg-white  max-w-[14.5rem] min-h-[21.65rem] h-fit w-fit hover:border-purple-500 border-transparent border-[1px] duration-500 hover:translate-y-[-1rem]'>
       {/* status */}
       {quantity > 0 ? (
         <div className=' flex flex-row gap-2 text-color-green'>
@@ -51,33 +48,70 @@ export default function ProductCard({
         </div>
       )}
       {/* image */}
-      <div className=' flex-[6] w-full flex justify-center'>
-        <Image alt='product' src={Monior_Example} />
-      </div>
+      <Link
+        href={pathHelper.productDetail(
+          convertToSlug(category),
+          convertToSlug(slug)
+        )}
+        className=' flex-[6] w-full flex justify-center'
+      >
+        <Image
+          alt='product'
+          src={srcImage}
+          width='0'
+          height='0'
+          sizes='100vw'
+          className='w-full h-auto'
+        />
+      </Link>
       {/* review */}
-      <div className=' flex-[1] flex flex-row items-center gap-3 justify-start'>
+      <Link
+        href={pathHelper.productDetail(
+          convertToSlug(category),
+          convertToSlug(slug)
+        )}
+        className=' flex-[1] flex flex-row items-center gap-3 justify-start'
+      >
         <RatingStar defaultScore={ratingScore} readOnly={true} />
         <span className=' text-[0.8rem] text-color-silver mt-1'>{`Review(${formatAmount(
           reviewAmount
         )})`}</span>
-      </div>
+      </Link>
       {/* name */}
-      <div className=' flex-[4] max-h-14 overflow-hidden text-ellipsis whitespace-nowrap'>
+      <Link
+        href={pathHelper.productDetail(
+          convertToSlug(category),
+          convertToSlug(slug)
+        )}
+        className=' flex-[4] max-h-14 overflow-hidden text-ellipsis whitespace-nowrap'
+      >
         {name}
-      </div>
+      </Link>
       <div className='flex flex-col gap-0 w-full'>
-        <p className=' text-[1rem] font-normal text-color-silver line-through overflow-hidden whitespace-nowrap text-ellipsis'>
+        <Link
+          href={pathHelper.productDetail(
+            convertToSlug(category),
+            convertToSlug(slug)
+          )}
+          className=' text-[1rem] font-normal text-color-silver line-through overflow-hidden whitespace-nowrap text-ellipsis'
+        >
           {formatMoney(priceBeforeDiscount)}
-        </p>
+        </Link>
         <div className='w-full flex flex-row justify-between items-center'>
-          <p className=' text-[1.7rem] font-medium text-black overflow-hidden whitespace-nowrap text-ellipsis '>
+          <Link
+            href={pathHelper.productDetail(
+              convertToSlug(category),
+              convertToSlug(slug)
+            )}
+            className=' text-[1.7rem] font-medium text-black overflow-hidden whitespace-nowrap text-ellipsis '
+          >
             {formatMoney(price)}
-          </p>
+          </Link>
           <ActionIcon color='black'>
             <IconShoppingCartPlus />
           </ActionIcon>
         </div>
       </div>
-    </Link>
+    </div>
   )
 }
