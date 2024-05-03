@@ -7,16 +7,19 @@ const pathHelper = {
   productDetail: (type: String, name: String) => `/products/${type}/${name}`,
   home: () => '/',
   404: () => '404',
-  cart: () => '/cart'
+  cart: () => '/cart',
+  orders: () => '/orders',
 }
 
 const apiHelper = {
   signInDEV: () => `${BASE_URL_DEV}/users/signIn`,
   signUpDEV: () => `${BASE_URL_DEV}/users/signUp`,
   logoutDEV: () => `${BASE_URL_DEV}/users/signout`,
-  signInPRO: () => `${BASE_URL}/users/signIn`,
-  signUpPRO: () => `${BASE_URL}/users/signUp`,
-  logoutPRO: () => `${BASE_URL}/users/signout`
+  signInPRO: () => `${BASE_URL_DEV}/users/signIn`,
+  signUpPRO: () => `${BASE_URL_DEV}/users/signUp`,
+  logoutPRO: () => `${BASE_URL_DEV}/users/signout`,
+  getAllPublishedProductsPRO: (limit = 51, page = 1) =>
+    `${BASE_URL_DEV}/products/published/all?limit=${limit}&page=${page}`,
 }
 
 export { pathHelper, apiHelper }

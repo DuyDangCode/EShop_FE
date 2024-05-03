@@ -7,7 +7,7 @@ import {
   NumberInput,
   NumberInputHandlers,
   Pagination,
-  Rating
+  Rating,
 } from '@mantine/core'
 import { formatMoney } from '@/utils/string.utils'
 import { useRef, useState } from 'react'
@@ -93,7 +93,7 @@ export default function ProductDetailPage() {
           <div className='w-full flex justify-center gap-3 items-center'>
             <div className='flex flex-row w-fit justify-center items-center'>
               <div className='flex flex-col w-fit h-fit justify-center items-center'>
-                <p className=' font-bold text-[1.7rem]'>{`3/5`}</p>
+                <p className=' font-bold text-[1.7rem]'>{'3/5'}</p>
                 <Rating defaultValue={5} readOnly />
                 <p className=' text-[1rem]'>{`(${2} reviews)`}</p>
               </div>
@@ -105,8 +105,8 @@ export default function ProductDetailPage() {
                     key={index}
                     className={
                       index === chosenRating
-                        ? 'font-bold  flex justify-center items-center text-white bg-yellow-300 border-[1px] border-black p-2 rounded-md w-20 h-9'
-                        : 'font-bold  flex justify-center items-center text-black bg-white border-[1px] border-black p-2 rounded-md w-20 h-9'
+                        ? 'font-bold  flex justify-center items-center bg-white text-orange-500 border-[1px] border-black p-2 rounded-md w-20 h-9'
+                        : 'flex justify-center items-center text-black bg-white border-[1px] border-black p-2 rounded-md w-20 h-9'
                     }
                     onClick={() => {
                       setChosenRating(index)
