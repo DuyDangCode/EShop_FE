@@ -1,4 +1,12 @@
-@tailwind base;
+@layer tailwind {
+  @tailwind base;
+}
 @tailwind components;
 @tailwind utilities;
-
+/*.pagination-control {*/
+/*  &[data-active] {*/
+/*    background-color: var(--mantine-color-turquoise-6) !important;*/
+/*    --_control-border-color: var(--pagination-active-bg) !important;*/
+/*    --_control-color: var(--mantine-color-black);*/
+/*  }*/
+/*}*/

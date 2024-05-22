@@ -12,11 +12,11 @@ const poppins = Poppins({ subsets: ['latin'], weight: ['400', '700'] })
 
 export const metadata: Metadata = {
   title: 'E-Shop',
-  description: 'The ecommerce shop'
+  description: 'The ecommerce shop',
 }
 
 export default function RootLayout({
-  children
+  children,
 }: {
   children: React.ReactNode
 }) {

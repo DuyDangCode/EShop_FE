@@ -31,7 +31,7 @@ export default function ProductCard({
   reviewAmount,
   quantity,
   category,
-  slug
+  slug,
 }: ProductCardProps) {
   return (
     <div className=' cursor-pointer px-5 py-3 flex flex-col bg-white  max-w-[14.5rem] min-h-[21.65rem] h-fit w-fit hover:border-purple-500 border-transparent border-[1px] duration-500 hover:translate-y-[-1rem]'>
@@ -51,7 +51,7 @@ export default function ProductCard({
       <Link
         href={pathHelper.productDetail(
           convertToSlug(category),
-          convertToSlug(slug)
+          convertToSlug(slug),
         )}
         className=' flex-[6] w-full flex justify-center'
       >
@@ -68,20 +68,20 @@ export default function ProductCard({
       <Link
         href={pathHelper.productDetail(
           convertToSlug(category),
-          convertToSlug(slug)
+          convertToSlug(slug),
         )}
         className=' flex-[1] flex flex-row items-center gap-3 justify-start'
       >
         <RatingStar defaultScore={ratingScore} readOnly={true} />
         <span className=' text-[0.8rem] text-color-silver mt-1'>{`Review(${formatAmount(
-          reviewAmount
+          reviewAmount,
         )})`}</span>
       </Link>
       {/* name */}
       <Link
         href={pathHelper.productDetail(
           convertToSlug(category),
-          convertToSlug(slug)
+          convertToSlug(slug),
         )}
         className=' flex-[4] max-h-14 overflow-hidden text-ellipsis whitespace-nowrap'
       >
@@ -91,7 +91,7 @@ export default function ProductCard({
         <Link
           href={pathHelper.productDetail(
             convertToSlug(category),
-            convertToSlug(slug)
+            convertToSlug(slug),
           )}
           className=' text-[1rem] font-normal text-color-silver line-through overflow-hidden whitespace-nowrap text-ellipsis'
         >
@@ -101,7 +101,7 @@ export default function ProductCard({
           <Link
             href={pathHelper.productDetail(
               convertToSlug(category),
-              convertToSlug(slug)
+              convertToSlug(slug),
             )}
             className=' text-[1.7rem] font-medium text-black overflow-hidden whitespace-nowrap text-ellipsis '
           >
