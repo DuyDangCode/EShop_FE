@@ -24,7 +24,6 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       })
     },
   })
-  console.log(data)
   return (
     <div className='w-full h-full flex justify-center items-center flex-col gap-5'>
       <div className=' md:grid lg:grid-rows-2 lg:grid-cols-5  lg:max-[1300px]:grid-rows-3 lg:max-[1300px]:grid-cols-4 md:grid-rows-4 md:grid-cols-3  md:grid-flow-row h-fit w-full flex flex-col justify-center items-center lg:px-16 md:px-8 px-2'>
@@ -33,7 +32,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
             <ProductCard
               key={index}
               name={
-                'EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On the store aaaaaaaaaaaaaaa'
+                'EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On the store '
               }
               price={500}
               priceBeforeDiscount={1000}
