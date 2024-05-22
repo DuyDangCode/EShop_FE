@@ -17,6 +17,7 @@ export function Provider({ children }: { children: ReactNode }) {
     const userId = getCookie('userId')
     setUser(userId)
   }, [])
+
   return (
     <MantineProvider>
       <QueryClientProvider client={queryClient}>

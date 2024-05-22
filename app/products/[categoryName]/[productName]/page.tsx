@@ -14,6 +14,7 @@ import { useRef, useState } from 'react'
 import { IconPlus, IconMinus, IconStar } from '@tabler/icons-react'
 import { colors } from '@/constrant/colors'
 import Comment from '@/components/Comment/Comment'
+import '../../../globals.css'
 
 export default function ProductDetailPage() {
   //TODO:"lam api get san pham theo slug"
@@ -135,7 +136,13 @@ export default function ProductDetailPage() {
         <Comment />
         <Comment />
 
-        <Pagination total={10} color={colors.blackColor} />
+        <Pagination
+          classNames={{
+            control: 'pagination-control',
+          }}
+          total={10}
+          color={colors.blackColor}
+        />
       </div>
     </div>
   )
