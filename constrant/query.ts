@@ -1,0 +1,3 @@
+const LIMIT_PRODUCT = 10
+
+export { LIMIT_PRODUCT }

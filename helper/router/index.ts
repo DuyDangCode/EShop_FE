@@ -11,15 +11,25 @@ const pathHelper = {
   orders: () => '/orders',
 }
 
-const apiHelper = {
+const authApi = {
   signInDEV: () => `${BASE_URL_DEV}/users/signIn`,
   signUpDEV: () => `${BASE_URL_DEV}/users/signUp`,
   logoutDEV: () => `${BASE_URL_DEV}/users/signout`,
   signInPRO: () => `${BASE_URL_DEV}/users/signIn`,
   signUpPRO: () => `${BASE_URL_DEV}/users/signUp`,
   logoutPRO: () => `${BASE_URL_DEV}/users/signout`,
+}
+
+const productApi = {
+  getTotalPublishedProduct: (product_type: String) =>
+    `${BASE_URL_DEV}/products/published/total?product_type=${product_type}`,
   getAllPublishedProductsPRO: (limit = 51, page = 1) =>
     `${BASE_URL_DEV}/products/published/all?limit=${limit}&page=${page}`,
+}
+
+const apiHelper = {
+  ...authApi,
+  ...productApi,
 }
 
 export { pathHelper, apiHelper }
