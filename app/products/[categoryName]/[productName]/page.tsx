@@ -4,6 +4,7 @@ import Monior_Example from '@/public/vector/monitor_example.svg'
 import {
   ActionIcon,
   Button,
+  LoadingOverlay,
   NumberInput,
   NumberInputHandlers,
   Pagination,
@@ -15,28 +16,73 @@ import { IconPlus, IconMinus, IconStar } from '@tabler/icons-react'
 import { colors } from '@/constrant/colors'
 import Comment from '@/components/Comment/Comment'
 import '../../../globals.css'
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+import { apiHelper } from '@/helper/router'
+import { X_API_KEY } from '@/constrant/system'
 
-export default function ProductDetailPage() {
-  //TODO:"lam api get san pham theo slug"
+interface ProductDetailPageProps {
+  params: {
+    productName: string
+  }
+}
+
+export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const [quantity, setQuantity] = useState<number>(0)
   const setNewQuantity = useRef<NumberInputHandlers>(null)
   const numberOfReview = 10
   const [chosenRating, setChosenRating] = useState<number>(0)
+  const { data, isPending } = useQuery({
+    queryKey: [params.productName],
+    queryFn: async () => {
+      return await axios
+        .get(apiHelper.getOneProductBySlug(params.productName), {
+          headers: {
+            'x-api-key': X_API_KEY,
+          },
+        })
+        .then((res) => res.data)
+        .catch((err) => {
+          throw err
+        })
+    },
+  })
+  function convertObjectToArray(object: any) {
+    const results = []
+    for (let key in object) {
+      if (object.hasOwnProperty(key)) {
+        results.push(`${key}: ${object[key]}`)
+      }
+    }
+    return results
+  }
 
+  console.log(data?.metadata?.product_attributes)
   return (
     <div className='w-full h-full flex flex-col'>
       <div className='w-full h-fit flex flex-col md:flex-row justify-center items-center'>
         {/* image */}
         <div className='flex justify-center flex-[1] md:mb-20 mb-0 '>
-          <Image alt='product' height={200} src={Monior_Example} />
+          <Image
+            alt=''
+            width='0'
+            height='0'
+            sizes='100vw'
+            className='p-20 w-full h-auto'
+            src={data?.metadata?.product_thumb}
+          />
         </div>
         <div className='flex flex-col flex-[2] h-fit gap-3 m-5 '>
           <div className='flex flex-col gap-1'>
-            <p>Brand: {'Laptop'}</p>
-            <p className=' text-[2rem] font-bold'>{'may tinh luong tu'}</p>
-            <Rating defaultValue={5} readOnly />
+            <p>Brand: {data?.metadata?.product_type}</p>
+            <p className=' text-[2rem] font-bold'>
+              {data?.metadata?.product_name}
+            </p>
+            <Rating value={data?.metadata?.product_rating} readOnly />
           </div>
-          <div className=' text-[2.5rem]'>{formatMoney(0)}</div>
+          <div className=' text-[2.5rem]'>
+            {formatMoney(data?.metadata?.product_price)}
+          </div>
           <div className='flex flex-col'>
             <p>Quantity</p>
             <div className='flex justify-center items-center w-fit'>
@@ -86,7 +132,11 @@ export default function ProductDetailPage() {
       </div>
       <div className='flex flex-col p-5 justify-start'>
         <p className=' text-[1.2rem] font-bold'>Detail:</p>
-        <p></p>
+        {convertObjectToArray(data?.metadata?.product_attributes).map(
+          (item: any, index: number) => (
+            <p key={index}>{item}</p>
+          ),
+        )}
       </div>
       <div className='flex flex-col p-5 justify-center w-full h-fit'>
         <p className=' text-[1.2rem] font-bold'>Reviews: </p>
@@ -144,6 +194,11 @@ export default function ProductDetailPage() {
           color={colors.blackColor}
         />
       </div>
+      <LoadingOverlay
+        visible={isPending}
+        zIndex={1000}
+        overlayProps={{ radius: 'sm', blur: 2 }}
+      />
     </div>
   )
 }

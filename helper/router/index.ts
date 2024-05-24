@@ -25,6 +25,14 @@ const productApi = {
     `${BASE_URL_DEV}/products/published/total?product_type=${product_type}`,
   getAllPublishedProductsPRO: (limit = 51, page = 1) =>
     `${BASE_URL_DEV}/products/published/all?limit=${limit}&page=${page}`,
+  getAllPublishedProductsByCategoryPRO: (
+    product_type: string,
+    limit = 51,
+    page = 1,
+  ) =>
+    `${BASE_URL_DEV}/products/published/${product_type}?limit=${limit}&page=${page}`,
+  getOneProductBySlug: (product_slug: string) =>
+    `${BASE_URL_DEV}/products/published/one/${product_slug}`,
 }
 
 const apiHelper = {
