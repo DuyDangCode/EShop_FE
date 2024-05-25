@@ -57,7 +57,6 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
     return results
   }
 
-  console.log(data?.metadata?.product_attributes)
   return (
     <div className='w-full h-full flex flex-col'>
       <div className='w-full h-fit flex flex-col md:flex-row justify-center items-center'>
@@ -68,7 +67,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
             width='0'
             height='0'
             sizes='100vw'
-            className='p-20 w-full h-auto'
+            className='min-h-[150px] w-full h-auto md:p-20'
             src={data?.metadata?.product_thumb}
           />
         </div>
@@ -132,16 +131,18 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
       </div>
       <div className='flex flex-col p-5 justify-start'>
         <p className=' text-[1.2rem] font-bold'>Detail:</p>
-        {convertObjectToArray(data?.metadata?.product_attributes).map(
-          (item: any, index: number) => (
-            <p key={index}>{item}</p>
-          ),
-        )}
+        <div className='flex m-4 flex-col'>
+          {convertObjectToArray(data?.metadata?.product_attributes).map(
+            (item: any, index: number) => (
+              <p key={index}>{item}</p>
+            ),
+          )}
+        </div>
       </div>
       <div className='flex flex-col p-5 justify-center w-full h-fit'>
         <p className=' text-[1.2rem] font-bold'>Reviews: </p>
         {numberOfReview ? (
-          <div className='w-full flex justify-center gap-3 items-center'>
+          <div className='w-full flex md:flex-row flex-col justify-center gap-3 items-center'>
             <div className='flex flex-row w-fit justify-center items-center'>
               <div className='flex flex-col w-fit h-fit justify-center items-center'>
                 <p className=' font-bold text-[1.7rem]'>{'3/5'}</p>
@@ -149,33 +150,59 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                 <p className=' text-[1rem]'>{`(${2} reviews)`}</p>
               </div>
             </div>
-            <div className='flex gap-3'>
-              {Array.from({ length: 6 }).map((item, index) => {
-                return (
-                  <button
-                    key={index}
-                    className={
-                      index === chosenRating
-                        ? 'font-bold  flex justify-center items-center bg-white text-orange-500 border-[1px] border-black p-2 rounded-md w-20 h-9'
-                        : 'flex justify-center items-center text-black bg-white border-[1px] border-black p-2 rounded-md w-20 h-9'
-                    }
-                    onClick={() => {
-                      setChosenRating(index)
-                    }}
-                  >
-                    {index === 0 ? (
-                      'All'
-                    ) : (
+            <div className='flex flex-col md:flex-row gap-3'>
+              <div className='flex flex-row gap-3'>
+                {Array.from({ length: 3 }).map((item, index) => {
+                  return (
+                    <button
+                      key={index}
+                      className={
+                        index === chosenRating
+                          ? 'font-bold  flex justify-center items-center bg-white text-orange-500 border-[1px] border-black p-2 rounded-md w-20 h-9'
+                          : 'flex justify-center items-center text-black bg-white border-[1px] border-black p-2 rounded-md w-20 h-9'
+                      }
+                      onClick={() => {
+                        setChosenRating(index)
+                      }}
+                    >
+                      {index === 0 ? (
+                        'All'
+                      ) : (
+                        <p className=' flex justify-center items-center w-full gap-1 h-full'>
+                          {index}
+                          <span>
+                            <IconStar />
+                          </span>
+                        </p>
+                      )}
+                    </button>
+                  )
+                })}
+              </div>
+              <div className='flex flex-row gap-3'>
+                {Array.from({ length: 3 }).map((item, index) => {
+                  return (
+                    <button
+                      key={index + 3}
+                      className={
+                        index + 3 === chosenRating
+                          ? 'font-bold  flex justify-center items-center bg-white text-orange-500 border-[1px] border-black p-2 rounded-md w-20 h-9'
+                          : 'flex justify-center items-center text-black bg-white border-[1px] border-black p-2 rounded-md w-20 h-9'
+                      }
+                      onClick={() => {
+                        setChosenRating(index + 3)
+                      }}
+                    >
                       <p className=' flex justify-center items-center w-full gap-1 h-full'>
-                        {index}
+                        {index + 3}
                         <span>
                           <IconStar />
                         </span>
                       </p>
-                    )}
-                  </button>
-                )
-              })}
+                    </button>
+                  )
+                })}
+              </div>
             </div>
           </div>
         ) : (
