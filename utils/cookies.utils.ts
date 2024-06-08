@@ -2,21 +2,21 @@ import {
   ACCESS_TOKEN_TIME,
   REFRESH_TOKEN_TIME,
   ROLES_TIME,
-  USER_ID_TIME
+  USER_ID_TIME,
 } from '@/constrant/cookiesMaxAge'
 import {
   ACCESS_TOKEN,
   REFRESH_TOKEN,
   ROLES,
-  USER_ID
+  USER_ID,
 } from '@/constrant/cookiesName'
-import { deleteCookie, setCookie } from 'cookies-next'
+import { deleteCookie, setCookie, getCookie } from 'cookies-next'
 
 const saveCookies = (
   accessToken: string,
   refreshToken: string,
   roles: string,
-  userId: string
+  userId: string,
 ): boolean => {
   try {
     setCookie(ACCESS_TOKEN, accessToken, { maxAge: ACCESS_TOKEN_TIME })
@@ -41,4 +41,11 @@ const removeCookiesWhenLogout = () => {
   }
 }
 
-export { saveCookies, removeCookiesWhenLogout }
+const getUserId = () => {
+  return getCookie(USER_ID)
+}
+const getAuthentication = () => {
+  return getCookie(ACCESS_TOKEN)
+}
+
+export { saveCookies, removeCookiesWhenLogout, getUserId, getAuthentication }

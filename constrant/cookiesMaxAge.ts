@@ -1,6 +1,6 @@
-const ACCESS_TOKEN_TIME = 60 * 60 * 24 * 30
-const USER_ID_TIME = 60 * 60 * 24 * 30
-const REFRESH_TOKEN_TIME = 60 * 60 * 24 * 3
-const ROLES_TIME = 60 * 60 * 24 * 3
+const ACCESS_TOKEN_TIME = 60 * 60 * 24 - 60 * 60
+const USER_ID_TIME = 60 * 60 * 24 * 30 - 60 * 60
+const REFRESH_TOKEN_TIME = 60 * 60 * 24 * 30 - 60 * 60
+const ROLES_TIME = 60 * 60 * 24 * 30 - 60 * 60
 
 export { ACCESS_TOKEN_TIME, USER_ID_TIME, REFRESH_TOKEN_TIME, ROLES_TIME }

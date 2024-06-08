@@ -8,9 +8,16 @@ import { ActionIcon } from '@mantine/core'
 import { IconShoppingCartPlus } from '@tabler/icons-react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { pathHelper } from '@/helper/router'
+import { apiHelper, pathHelper } from '@/helper/router'
+import { useMutation } from '@tanstack/react-query'
+import apiInstance from '@/axiosInstance'
+import { promiseToast } from '@/utils/promiseToast.utils'
+import { queryClient } from '@/app/queryClient'
+import toast from 'react-hot-toast'
+import { data } from 'autoprefixer'
 
 interface ProductCardProps {
+  productId: string
   name: string
   price: number
   priceBeforeDiscount: number
@@ -23,6 +30,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({
+  productId,
   name,
   price,
   priceBeforeDiscount,
@@ -33,6 +41,39 @@ export default function ProductCard({
   category,
   slug,
 }: ProductCardProps) {
+  // console.log(productId)
+  // const addMutation = useMutation({
+  //   mutationKey: ['addToCart', name, 1],
+  //   mutationFn: async () => {
+  //     const addProductPromise = apiInstance.post(apiHelper.cart(), {
+  //       product: {
+  //         productId: productId,
+  //         productQuantity: 1,
+  //       },
+  //     })
+  //     promiseToast(addProductPromise, 'Add product sucessful', 'Fail')
+  //     return await addProductPromise
+  //       .then((res) => res.data)
+  //       .catch((err) => {
+  //         console.log(err)
+  //         throw err
+  //       })
+  //   },
+  //   onError: (err) => {
+  //     toast.error(err?.message)
+  //   },
+  // })
+
+  function addProductToCart(productId: string) {
+    const addProductPromise = apiInstance.post(apiHelper.cart(), {
+      product: {
+        productId: productId,
+        productQuantity: 1,
+      },
+    })
+    promiseToast(addProductPromise, 'Add product sucessful', 'Fail')
+  }
+
   return (
     <div className=' cursor-pointer px-5 py-3 flex flex-col bg-white  max-w-[14.5rem] min-h-[21.65rem] h-fit w-fit hover:border-purple-500 border-transparent border-[1px] duration-500 hover:translate-y-[-1rem]'>
       {/* status */}
@@ -49,10 +90,7 @@ export default function ProductCard({
       )}
       {/* image */}
       <Link
-        href={pathHelper.productDetail(
-          convertToSlug(category),
-          convertToSlug(slug),
-        )}
+        href={pathHelper.productDetail(convertToSlug(category), slug)}
         className=' flex-[6] w-full flex justify-center'
       >
         <Image
@@ -66,10 +104,7 @@ export default function ProductCard({
       </Link>
       {/* review */}
       <Link
-        href={pathHelper.productDetail(
-          convertToSlug(category),
-          convertToSlug(slug),
-        )}
+        href={pathHelper.productDetail(convertToSlug(category), slug)}
         className=' flex-[1] flex flex-row items-center gap-3 justify-start'
       >
         <RatingStar defaultScore={ratingScore} readOnly={true} />
@@ -79,35 +114,31 @@ export default function ProductCard({
       </Link>
       {/* name */}
       <Link
-        href={pathHelper.productDetail(
-          convertToSlug(category),
-          convertToSlug(slug),
-        )}
+        href={pathHelper.productDetail(convertToSlug(category), slug)}
         className=' flex-[4] max-h-14 overflow-hidden text-ellipsis whitespace-nowrap'
       >
         {name}
       </Link>
       <div className='flex flex-col gap-0 w-full'>
         <Link
-          href={pathHelper.productDetail(
-            convertToSlug(category),
-            convertToSlug(slug),
-          )}
+          href={pathHelper.productDetail(convertToSlug(category), slug)}
           className=' text-[1rem] font-normal text-color-silver line-through overflow-hidden whitespace-nowrap text-ellipsis'
         >
           {formatMoney(priceBeforeDiscount)}
         </Link>
         <div className='w-full flex flex-row justify-between items-center'>
           <Link
-            href={pathHelper.productDetail(
-              convertToSlug(category),
-              convertToSlug(slug),
-            )}
+            href={pathHelper.productDetail(convertToSlug(category), slug)}
             className=' text-[1.7rem] font-medium text-black overflow-hidden whitespace-nowrap text-ellipsis '
           >
             {formatMoney(price)}
           </Link>
-          <ActionIcon color='black'>
+          <ActionIcon
+            color='black'
+            onClick={() => {
+              addProductToCart(productId)
+            }}
+          >
             <IconShoppingCartPlus />
           </ActionIcon>
         </div>
