@@ -53,6 +53,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       <div className=' md:grid lg:grid-rows-2 lg:grid-cols-5  lg:max-[1300px]:grid-rows-3 lg:max-[1300px]:grid-cols-4 md:grid-rows-4 md:grid-cols-3  md:grid-flow-row h-fit w-full flex flex-col justify-center items-center lg:px-16 md:px-8 px-2'>
         {data?.data.metadata.map((item: any) => (
           <ProductCard
+            productId={item._id}
             key={item._id}
             name={item.product_name}
             price={item.product_price}
@@ -77,6 +78,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         visible={isPending}
         zIndex={1000}
         overlayProps={{ radius: 'sm', blur: 2 }}
+        loaderProps={{ color: 'black', type: 'bars' }}
       />
     </div>
   )

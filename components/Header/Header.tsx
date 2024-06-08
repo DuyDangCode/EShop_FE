@@ -25,7 +25,7 @@ import {
 import DropDownMenu from '../DropdownMenu/DropdownMenu'
 import { apiHelper, pathHelper } from '@/helper/router'
 import Dropdown from '../Dropdown/Dropdown'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { X_API_KEY } from '@/constrant/system'
 import { getCookie } from 'cookies-next'
 import { ACCESS_TOKEN, USER_ID } from '@/constrant/cookiesName'
@@ -38,6 +38,8 @@ import {
   IconLogout,
 } from '@tabler/icons-react'
 import toast from 'react-hot-toast'
+import apiInstance from '@/axiosInstance'
+import { queryClient } from '@/app/queryClient'
 
 export default function Header() {
   const [search, setSearch] = useState(SearchImg)
@@ -69,6 +71,7 @@ export default function Header() {
     if (removeCookiesWhenLogout()) {
       setUser(undefined)
       setIsDisplayMenu(false)
+      queryClient.removeQueries({ queryKey: ['cart'], exact: true })
       toast.success('Logout successful')
     }
   }

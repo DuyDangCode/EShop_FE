@@ -2,18 +2,17 @@ import ProductCard from '@/components/ProductCard/ProductCard'
 import CarouselMainPage from '@/components/CarouselMainPage/CarouselMainPage'
 import { apiHelper } from '@/helper/router'
 import { X_API_KEY } from '@/constrant/system'
-import { metadata } from './layout'
 
 async function getProduct() {
-  const res = await fetch(apiHelper.getAllPublishedProductsPRO(10, 1), {
+  const res = await fetch(apiHelper.getAllPublishedProducts(10, 1), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': X_API_KEY
+      'x-api-key': X_API_KEY,
     },
     next: {
-      revalidate: 18000
-    }
+      revalidate: 18000,
+    },
   })
 
   if (!res.ok) {
@@ -27,7 +26,7 @@ export default async function Home() {
   const data = await getProduct().catch((err) => {
     return {
       status: 400,
-      metadata: err.message
+      metadata: err.message,
     }
   })
   return (
@@ -45,15 +44,18 @@ export default async function Home() {
             return (
               <ProductCard
                 key={index}
+                productId={item._id}
                 name={item.product_name}
                 price={item.product_price}
-                priceBeforeDiscount={item.product_price * 10}
+                priceBeforeDiscount={
+                  item.product_price + item.product_price * 0.2
+                }
                 srcImage={item.product_thumb}
                 ratingScore={item.product_rating}
-                reviewAmount={500}
-                quantity={10}
-                category={'laptop'}
-                slug={item.product_name}
+                reviewAmount={item.product_review_amout}
+                quantity={item.product_quantity}
+                category={'Laptops'}
+                slug={item.product_slug}
               />
             )
           })
