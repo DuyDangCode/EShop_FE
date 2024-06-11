@@ -9,6 +9,7 @@ const pathHelper = {
   404: () => '404',
   cart: () => '/cart',
   orders: () => '/orders',
+  checkout: () => '/checkout',
 }
 
 const authApi = {

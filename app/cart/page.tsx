@@ -7,15 +7,19 @@ import { formatMoney } from '@/utils/string.utils'
 import toast from 'react-hot-toast'
 import { promiseToast } from '@/utils/promiseToast.utils'
 import { useEffect, useRef, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { QueryCache, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { apiHelper } from '@/helper/router'
+import { apiHelper, pathHelper } from '@/helper/router'
 import { X_API_KEY } from '@/constrant/system'
 import { getAuthentication, getUserId } from '@/utils/cookies.utils'
 import { LoadingOverlay } from '@mantine/core'
 import apiInstance from '@/axiosInstance'
+import { queryClient } from '../queryClient'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function CartPage() {
+  const router = useRouter()
   const [checkedAll, setCheckedAll] = useState<boolean>(false)
   const { data, isPending } = useQuery({
     queryKey: ['cart'],
@@ -30,6 +34,18 @@ export default function CartPage() {
   })
   const [cartData, setCartData] = useState<Array<any>>([])
   const [productNotChecked, setProductNotChecked] = useState<number>(-1)
+  const [productCheckout, setProductCheckout] = useState<Map<string, Object>>(
+    new Map(),
+  )
+
+  useQuery({
+    queryKey: ['productCheckout'],
+    queryFn: () => {
+      return
+    },
+    staleTime: Infinity,
+    gcTime: Infinity,
+  })
 
   const [totalCost, setTotalCost] = useState<number>(0)
   useEffect(() => {
@@ -56,6 +72,15 @@ export default function CartPage() {
     setCartData([])
     const removePromise = apiInstance.delete(apiHelper.cart())
     promiseToast(removePromise, 'Remove sucessful', 'Fail')
+  }
+
+  async function checkout(data: Map<string, Object>) {
+    if (data.size > 0) {
+      await queryClient.setQueryData(['productCheckout'], data)
+      router.push(pathHelper.checkout())
+    } else {
+      toast.error('Please select a product')
+    }
   }
 
   return (
@@ -121,6 +146,7 @@ export default function CartPage() {
               setProductNotChecked={setProductNotChecked}
               setTotalCost={setTotalCost}
               setCartData={setCartData}
+              setProductCheckout={setProductCheckout}
             />
           ))}
         </div>
@@ -134,19 +160,7 @@ export default function CartPage() {
           <button
             className='w-full  bg-black text-white rounded-md px-3 h-10'
             onClick={() => {
-              // toast.success('Order successfully')
-              const promiseTest = new Promise((resolve, reject) => {
-                setTimeout(() => {
-                  resolve('Order successfully')
-                }, 5000)
-              })
-              promiseToast(
-                promiseTest,
-                'Order successfully',
-                'Order failed',
-                'Ordering...',
-                'order',
-              )
+              checkout(productCheckout)
             }}
           >
             Order
