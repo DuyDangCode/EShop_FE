@@ -12,15 +12,12 @@ import {
 import { IconInfoCircle } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState, useContext } from 'react'
-import toast from 'react-hot-toast'
 import { queryClient } from '../queryClient'
 import { notFound, useRouter } from 'next/navigation'
 import { apiHelper, pathHelper } from '@/helper/router'
-import axios from 'axios'
 import apiInstance from '@/axiosInstance'
 import { promiseToast } from '@/utils/promiseToast.utils'
 import UserContext from '@/context/userContext'
-import path from 'path'
 
 interface ProductRequest {
   voucherId?: string
