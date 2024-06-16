@@ -11,37 +11,39 @@ import {
 } from '@mantine/core'
 import { IconInfoCircle } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useState, useContext } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { queryClient } from '../queryClient'
-import { notFound, useRouter } from 'next/navigation'
-import { apiHelper, pathHelper } from '@/helper/router'
-import axios from 'axios'
-import apiInstance from '@/axiosInstance'
-import { promiseToast } from '@/utils/promiseToast.utils'
-import UserContext from '@/context/userContext'
-import path from 'path'
+import { useRouter } from 'next/navigation'
 
-interface ProductRequest {
-  voucherId?: string
-  productId: string
-  product_quantity: number
-  product_price: number
-}
+const Data_Example = [
+  {
+    id: 1,
+    name: 'Product 1Product 1Product 1Product 1Product 1Product 1Product 1Product 1Product 1Product 1',
+    price: 100,
+    quantity: 1,
+    image: 'https://via.placeholder.com/150',
+  },
+  {
+    id: 2,
+    name: 'Product 2',
+    price: 200,
+    quantity: 2,
+    image: 'https://via.placeholder.com/150',
+  },
+  {
+    id: 3,
+    name: 'Product 3',
+    price: 300,
+    quantity: 3,
+    image: 'https://via.placeholder.com/150',
+  },
+]
 
 export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState<string>('online')
-  const [totalCost, setTotalCost] = useState(0)
-
   const router = useRouter()
-
-  const { user: userId } = useContext(UserContext)
-
-  const {
-    data: productData,
-    isPending: isPendingProduct,
-    isError: isErrorCheckOutProduct,
-  } = useQuery({
+  const { data: productData, isPending } = useQuery({
     queryKey: ['productCheckout'],
     queryFn: () => {
       const queryData: Map<string, Object> | null | undefined =
@@ -51,24 +53,7 @@ export default function CheckoutPage() {
       }
       return queryData
     },
-    staleTime: Infinity,
-    gcTime: 0,
   })
-  const {
-    data: cartId,
-    isPending: isPendingCartId,
-    isError: isErrorCartId,
-  } = useQuery({
-    queryKey: ['cartId'],
-    queryFn: () => {
-      return queryClient.getQueryData(['cartId'])
-    },
-  })
-
-  let today = new Date()
-  let deliveryDate = new Date()
-  deliveryDate.setDate(today.getDate() + 3)
-
   function showProductsList(
     productData: Map<string, Object> | null | undefined,
   ) {
@@ -96,54 +81,6 @@ export default function CheckoutPage() {
     })
     return result
   }
-  //cal total cost
-  useEffect(() => {
-    let cost = 0
-    productData?.forEach((item: any) => {
-      cost += item.product_price * item.product_quantity
-    })
-    setTotalCost(cost)
-  }, [productData])
-
-  const order = (
-    cartId: any,
-    products: Array<ProductRequest>,
-    userId: string,
-    address: string,
-    phone: string,
-    order_payment: string,
-  ) => {
-    const orderPromise = apiInstance.post(apiHelper.order(), {
-      cartId: cartId,
-      products: products,
-      userId: userId,
-      address: address,
-      phone: phone,
-      order_payment: order_payment,
-    })
-    promiseToast(
-      orderPromise,
-      'Order successful',
-      'Order fail! Please tru again',
-    )
-    orderPromise.then(() => {
-      router.replace(pathHelper.orders())
-    })
-  }
-
-  if (isErrorCartId || isErrorCheckOutProduct) {
-    notFound()
-  }
-
-  if (isPendingProduct || isPendingCartId)
-    return (
-      <LoadingOverlay
-        zIndex={1000}
-        overlayProps={{ radius: 'sm', blur: 2 }}
-        loaderProps={{ color: 'black', type: 'bars' }}
-      />
-    )
-
   return (
     <div className='flex md:flex-row flex-col w-full h-full my-4 gap-10 items-start'>
       <div className='flex flex-[3] flex-col gap-5 h-fit '>
@@ -168,7 +105,7 @@ export default function CheckoutPage() {
 
         <div className='flex flex-row gap-3 p-5 border-[1px] border-black'>
           <p>Expected delivery:</p>
-          <p>{deliveryDate.toLocaleDateString()}</p>
+          <p>{'20/5/2024'}</p>
         </div>
 
         <div className='w-full -h-full p-5  border-[1px] border-black'>
@@ -213,59 +150,32 @@ export default function CheckoutPage() {
         <div className='w-full'>
           <div className=' flex w-full justify-start items-center gap-3 '>
             <p>Ships: </p>
-            <p>{formatMoney(0)}</p>
+            <p>{formatMoney(100000)}</p>
           </div>
           <div className=' flex w-full justify-start items-center gap-3 '>
             <p>Discount: </p>
-            <p>{formatMoney(0)}</p>
+            <p>{formatMoney(100000)}</p>
           </div>
           <div className=' flex w-full justify-start items-center gap-3 '>
             <p>Total cost: </p>
-            <p>{formatMoney(totalCost)}</p>
+            <p>{formatMoney(100000)}</p>
           </div>
           <div className=' flex gap-3 mt-5 flex-row w-full'>
-            <Button
-              color='green'
-              className='flex-[1]'
-              onClick={() => {
-                const productDataArray: Array<ProductRequest> = []
-                // ProductRequest {
-                //   voucherId: string
-                //   productId: string
-                //   product_quantity: number
-                //   product_price: number
-                // }
-                productData?.forEach((product: any, productId) => {
-                  productDataArray.push({
-                    productId: productId,
-                    product_quantity: product.product_quantity,
-                    product_price: product.product_price,
-                  })
-                })
-                order(
-                  cartId,
-                  productDataArray,
-                  userId,
-                  'HCM',
-                  '012345',
-                  paymentMethod,
-                )
-              }}
-            >
+            <Button color='green' className='flex-[1]'>
               Order
             </Button>
-            <Button
-              color='red'
-              className='flex-[1]'
-              onClick={async () => {
-                router.replace(pathHelper.home())
-              }}
-            >
+            <Button color='red' className='flex-[1]'>
               Cancel
             </Button>
           </div>
         </div>
       </div>
+      <LoadingOverlay
+        visible={isPending}
+        zIndex={1000}
+        overlayProps={{ radius: 'sm', blur: 2 }}
+        loaderProps={{ color: 'black', type: 'bars' }}
+      />
     </div>
   )
 }

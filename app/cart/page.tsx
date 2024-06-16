@@ -8,10 +8,14 @@ import toast from 'react-hot-toast'
 import { promiseToast } from '@/utils/promiseToast.utils'
 import { useEffect, useRef, useState } from 'react'
 import { QueryCache, useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 import { apiHelper, pathHelper } from '@/helper/router'
+import { X_API_KEY } from '@/constrant/system'
+import { getAuthentication, getUserId } from '@/utils/cookies.utils'
 import { LoadingOverlay } from '@mantine/core'
 import apiInstance from '@/axiosInstance'
 import { queryClient } from '../queryClient'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 export default function CartPage() {
@@ -28,14 +32,6 @@ export default function CartPage() {
         })
     },
   })
-  useQuery({
-    queryKey: ['cartId'],
-    queryFn: () => {
-      return data?.metadata?._id
-    },
-    gcTime: 0,
-    enabled: isPending,
-  })
   const [cartData, setCartData] = useState<Array<any>>([])
   const [productNotChecked, setProductNotChecked] = useState<number>(-1)
   const [productCheckout, setProductCheckout] = useState<Map<string, Object>>(
@@ -45,10 +41,10 @@ export default function CartPage() {
   useQuery({
     queryKey: ['productCheckout'],
     queryFn: () => {
-      return null
+      return
     },
     staleTime: Infinity,
-    gcTime: 0,
+    gcTime: Infinity,
   })
 
   const [totalCost, setTotalCost] = useState<number>(0)
@@ -57,6 +53,7 @@ export default function CartPage() {
       setCheckedAll(true)
       setProductNotChecked(data?.metadata?.cart_products.length)
     }
+    // console.log(productNotChecked)
   }, [productNotChecked])
   const maxCost = useRef(0)
   useEffect(() => {
@@ -77,25 +74,14 @@ export default function CartPage() {
     promiseToast(removePromise, 'Remove sucessful', 'Fail')
   }
 
-  async function checkout(data: Map<string, Object>, cartId: string) {
+  async function checkout(data: Map<string, Object>) {
     if (data.size > 0) {
       await queryClient.setQueryData(['productCheckout'], data)
-      await queryClient.setQueryData(['cartId'], cartId)
       router.push(pathHelper.checkout())
     } else {
       toast.error('Please select a product')
     }
   }
-
-  if (isPending)
-    return (
-      <LoadingOverlay
-        visible={isPending}
-        zIndex={1000}
-        overlayProps={{ radius: 'sm', blur: 2 }}
-        loaderProps={{ color: 'black', type: 'bars' }}
-      />
-    )
 
   return (
     <div className='flex flex-col w-full h-full gap-5'>
@@ -174,13 +160,19 @@ export default function CartPage() {
           <button
             className='w-full  bg-black text-white rounded-md px-3 h-10'
             onClick={() => {
-              checkout(productCheckout, data?.metadata?._id)
+              checkout(productCheckout)
             }}
           >
             Order
           </button>
         </div>
       </div>
+      <LoadingOverlay
+        visible={isPending}
+        zIndex={1000}
+        overlayProps={{ radius: 'sm', blur: 2 }}
+        loaderProps={{ color: 'black', type: 'bars' }}
+      />
     </div>
   )
 }
