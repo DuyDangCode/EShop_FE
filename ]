@@ -20,10 +20,9 @@ import axios from 'axios'
 import apiInstance from '@/axiosInstance'
 import { promiseToast } from '@/utils/promiseToast.utils'
 import UserContext from '@/context/userContext'
-import path from 'path'
 
 interface ProductRequest {
-  voucherId?: string
+  voucherId: string | null
   productId: string
   product_quantity: number
   product_price: number
@@ -32,7 +31,6 @@ interface ProductRequest {
 export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState<string>('online')
   const [totalCost, setTotalCost] = useState(0)
-
   const router = useRouter()
 
   const { user: userId } = useContext(UserContext)
@@ -64,11 +62,6 @@ export default function CheckoutPage() {
       return queryClient.getQueryData(['cartId'])
     },
   })
-
-  let today = new Date()
-  let deliveryDate = new Date()
-  deliveryDate.setDate(today.getDate() + 3)
-
   function showProductsList(
     productData: Map<string, Object> | null | undefined,
   ) {
@@ -126,9 +119,6 @@ export default function CheckoutPage() {
       'Order successful',
       'Order fail! Please tru again',
     )
-    orderPromise.then(() => {
-      router.replace(pathHelper.orders())
-    })
   }
 
   if (isErrorCartId || isErrorCheckOutProduct) {
@@ -168,7 +158,7 @@ export default function CheckoutPage() {
 
         <div className='flex flex-row gap-3 p-5 border-[1px] border-black'>
           <p>Expected delivery:</p>
-          <p>{deliveryDate.toLocaleDateString()}</p>
+          <p>{'20/5/2024'}</p>
         </div>
 
         <div className='w-full -h-full p-5  border-[1px] border-black'>
@@ -242,6 +232,7 @@ export default function CheckoutPage() {
                     product_price: product.product_price,
                   })
                 })
+                console.log(productDataArray)
                 order(
                   cartId,
                   productDataArray,
