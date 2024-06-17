@@ -2,6 +2,14 @@ import { BASE_URL } from '@/constrant/system'
 
 const pathHelper = {
   signin: () => '/signin',
+  signup: () => '/signup',
+  product: (type: String) => `/products/${type}`,
+  productDetail: (type: String, name: String) => `/products/${type}/${name}`,
+  home: () => '/',
+  404: () => '404',
+  cart: () => '/cart',
+  orders: () => '/orders',
+  checkout: () => '/checkout',
 }
 
 const authApi = {
