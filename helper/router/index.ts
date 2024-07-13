@@ -10,6 +10,7 @@ const pathHelper = {
   cart: () => '/cart',
   orders: () => '/orders',
   checkout: () => '/checkout',
+  orderDetail: (orderId: String) => `/orders/${orderId}`,
 }
 
 const authApi = {
@@ -41,6 +42,8 @@ const productApi = {
 
 const orderApi = {
   order: () => `${BASE_URL}/orders`,
+  orders: () => `${BASE_URL}/orders/all`,
+  totalOrder: () => `${BASE_URL}/orders/total`,
 }
 
 const apiHelper = {
