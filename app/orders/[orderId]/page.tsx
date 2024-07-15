@@ -1,4 +1,5 @@
 import OrderInfo from './OrderInfo'
+import OrderProductList from './OrderProductList'
 import OrderStatus from './OrderStatus'
 
 interface OrderDetailParms {
@@ -13,6 +14,7 @@ export default function OrderDetail({ params }: OrderDetailParms) {
       Order detail {params.orderId}
       <OrderStatus />
       <OrderInfo />
+      <OrderProductList />
     </div>
   )
 }
