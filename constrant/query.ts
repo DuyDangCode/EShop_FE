@@ -1,3 +1,4 @@
 const LIMIT_PRODUCT = 10
+const LIMIT_ORDER = 3
 
-export { LIMIT_PRODUCT }
+export { LIMIT_PRODUCT, LIMIT_ORDER }

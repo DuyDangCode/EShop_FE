@@ -31,6 +31,7 @@ interface CartItemProps {
   setProductNotChecked: Function
   setTotalCost: Function
   setCartData: Function
+  setProductCheckout: Function
 }
 
 export default function CartItem({
@@ -44,9 +45,11 @@ export default function CartItem({
   setProductNotChecked,
   setTotalCost,
   setCartData,
+  setProductCheckout,
 }: CartItemProps) {
   const [checked, setChecked] = useState<boolean>(checkedAll)
   const [newQuantity, setNewQuantity] = useState<number>(quantity)
+
   function debounce(callback: Function, timer: number = 300) {
     let timeout: any
     return function (...args: any) {
@@ -77,6 +80,11 @@ export default function CartItem({
       return newValue
     })
     const removePromise = apiInstance.delete(apiHelper.cartProduct(productId))
+
+    setProductCheckout((prev: Map<string, Object>) => {
+      prev.delete(productId)
+      return prev
+    })
     promiseToast(removePromise, 'Remove sucessful', 'Fail')
   }
 
@@ -84,11 +92,39 @@ export default function CartItem({
     if (checkedAll) {
       if (!checked) {
         setChecked(true)
+        setProductCheckout((prev: Map<string, Object>) =>
+          prev.set(productId, {
+            product_name: name,
+            product_price: price,
+            product_quantity: newQuantity,
+          }),
+        )
       }
     } else if (checked) {
+      setProductCheckout((prev: Map<string, Object>) => {
+        prev.delete(productId)
+        return prev
+      })
       setChecked(false)
     }
   }, [checkedAll])
+
+  useEffect(() => {
+    if (checked) {
+      setProductCheckout((prev: Map<string, Object>) =>
+        prev.set(productId, {
+          product_name: name,
+          product_price: price,
+          product_quantity: newQuantity,
+        }),
+      )
+    } else {
+      setProductCheckout((prev: Map<string, Object>) => {
+        prev.delete(productId)
+        return prev
+      })
+    }
+  }, [newQuantity, checked])
 
   return (
     <div className='grid items-center h-10 grid-cols-14 grid-flow-col grid-rows-1 w-full my-1'>
