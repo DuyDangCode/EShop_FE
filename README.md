@@ -1,34 +1,19 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# EShop Web Application
 
-## Getting Started
+## Introduction
+This project is a learning exercise focused on building an e-commerce web application for selling electronic products such as laptops and smartphones. The main goal is to apply and enhance web development skills using modern technologies like Next.js, Tailwind CSS, and React Query. 
 
-First, run the development server:
+## Technologies Used
+- **Next.js**: A React framework optimized for server-side rendering and static site generation, ensuring fast performance and SEO-friendly pages.
+- **Tailwind CSS**: A utility-first CSS framework used to build custom designs without writing traditional CSS, enhancing the design and responsiveness of the web app.
+- **React Query**: A powerful data-fetching library for managing server state and API calls, ensuring optimal handling of asynchronous data in the application.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Features
+- **Product Listings**: Display a wide range of products (laptops, smartphones, etc.) with detailed information, images, and pricing.
+- **Product Search & Filtering**: Easily search for products and apply filters based on categories, price, and brand.
+- **Shopping Cart**: Add products to the cart, update quantities, and remove items.
+- **Order Management**: Track placed orders, view order history, and manage delivery options.
+- **User Authentication**: Sign up, log in, and manage account details securely.
+- **Responsive Design**: Fully responsive and optimized for all devices, from desktop to mobile.
+  
+## UI
