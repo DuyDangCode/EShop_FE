@@ -17,3 +17,25 @@ This project is a learning exercise focused on building an e-commerce web applic
 - **Responsive Design**: Fully responsive and optimized for all devices, from desktop to mobile.
   
 ## UI
+#### Home 
+![alt_text](https://github.com/DuyDangCode/EShop_FE/blob/main/doc/ui/home_page.png)
+#### Home in table view
+![alt text](https://github.com/DuyDangCode/EShop_FE/blob/main/doc/ui/tablet_view.png)
+#### Login
+![alt_text](https://github.com/DuyDangCode/EShop_FE/blob/main/doc/ui/login_page.png)
+#### Register
+![alt_text](https://github.com/DuyDangCode/EShop_FE/blob/main/doc/ui/register_page.png)
+#### Products
+![alt_text](https://github.com/DuyDangCode/EShop_FE/blob/main/doc/ui/products_page.png)
+#### Product detail
+![alt_text](https://github.com/DuyDangCode/EShop_FE/blob/main/doc/ui/product_detail_page.png)
+#### Cart
+![alt_text](https://github.com/DuyDangCode/EShop_FE/blob/main/doc/ui/cart_page.png)
+#### Checkout
+![alt_text](https://github.com/DuyDangCode/EShop_FE/blob/main/doc/ui/checkout_page.png)
+#### Order
+![alt_text](https://github.com/DuyDangCode/EShop_FE/blob/main/doc/ui/order_page.png)
+
+
+
+
